@@ -10,7 +10,7 @@ from .dbtype import DatabaseType
 class Database:
     def __init__(
             self,
-            db_name: str = 'mark_system.database'
+            db_name: str = 'data.db'
     ):
         """Initializes database
 
@@ -21,6 +21,11 @@ class Database:
         self.con = connect(db_name)
         self.cur = self.con.cursor()
         self.query = ''
+        self.lastrowid = 0
+
+    def also(self) -> 'Database':
+        self.query += ';'
+        return self
 
     def clear_query(self):
         """Clears query"""
@@ -42,8 +47,10 @@ class Database:
 
     def execute(self) -> 'Database':
         """Executes query by cursor"""
-        self.cur.execute(self.query)
-        print(self.query)
+        if ';' in self.query:
+            self.cur.executescript(self.query)
+        else:
+            self.cur.execute(self.query)
         self.clear_query()
         return self
 
@@ -52,11 +59,11 @@ class Database:
         self.con.commit()
         return self
 
-    def exec(self) -> 'Database':
+    def exec(self) -> int:
         """Executes and commits"""
         self.execute()
         self.commit()
-        return self
+        return self.cur.lastrowid
 
     def insert_one(self, table: str, *columns: str) -> 'Database':
         """Insert one row into table
@@ -82,7 +89,9 @@ class Database:
 
     def if_not_exists(self) -> 'Database':
         """Adds IF NOT EXISTS into query"""
-        self.query = self.query.replace('CREATE TABLE', 'CREATE TABLE IF NOT EXISTS')
+        splitted = self.query.split(';')
+        splitted[-1] = splitted[-1].replace('CREATE TABLE', 'CREATE TABLE IF NOT EXISTS')
+        self.query = ';'.join(splitted)
         return self
 
     def set(self, *values: Val) -> 'Database':

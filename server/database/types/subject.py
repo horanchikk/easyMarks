@@ -3,13 +3,13 @@ from .. import DatabaseType
 
 
 class Subject(DatabaseType):
-    template = ['s_id', 'title', 'teacher_id', 'students']
+    template = ['s_id', 'title', 'teacher_id', 'groups']
 
     s_id: int
     title: str
     teacher_id: int
-    students: list[int]
+    groups: list[int]
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.students = [int(i) for i in self.students.split(',')]
+        self.groups = [int(i) for i in self.groups.split(',')]
