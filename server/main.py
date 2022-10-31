@@ -52,6 +52,7 @@ def main():
             Column('teacher_id', Column.Type.INT, primary_key=True, autoincrement=True),
             Column('name', Column.Type.TEXT),
             Column('subjects_ids', Column.Type.TEXT),
+            Column('access_token', Column.Type.TEXT),
         ).if_not_exists().exec()
 
 
