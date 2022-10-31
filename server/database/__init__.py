@@ -31,6 +31,10 @@ class Database:
         """Clears query"""
         self.query = ''
 
+    def row_count(self, table: str) -> int:
+        """Returns table length"""
+        return len(self.cur.execute(f'SELECT * FROM {table}').fetchall())
+
     def create_table(
             self,
             name: str,

@@ -37,6 +37,9 @@ class DBTest(TestCase):
         print(users)
         print([i.uid for i in users])
 
+    def test_03_rowcount(self):
+        print(self.db.row_count('testDb'))
+
 
 if __name__ == '__main__':
     main(verbosity=2)
