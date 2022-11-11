@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from fastapi import FastAPI
 
-from database import Database, Column
+from database import Database, Column, Val
 from database.types.subject import Subject
 from config import DB_NAME, ADMIN_TOKEN
 from models import AdminPayload
@@ -9,6 +9,18 @@ from models import AdminPayload
 subject = FastAPI(redoc_url=None, docs_url=None)
 
 db = Database(DB_NAME)
+
+
+@subject.get('/id{subject_id}')
+async def get_subject(subject_id: int):
+    """Finds subject by ID
+
+    :param subject_id: subject ID
+    """
+    subject = db.select('subject').where(Val('s_id', subject_id)).fetch_one_to(Subject)
+    return {
+        'response': subject.dict()
+    }
 
 
 @subject.post('/')
