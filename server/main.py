@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import Database, Column
-from mounts import student, mark, subject, teacher
+from mounts import student, mark, subject, teacher, group
 
 from config import DB_NAME
 
@@ -23,6 +23,7 @@ app.mount('/student', student)
 app.mount('/mark', mark)
 app.mount('/subject', subject)
 app.mount('/teacher', teacher)
+app.mount('/group', group)
 
 db = Database(DB_NAME)
 
@@ -34,12 +35,12 @@ def main():
         Column('score', Column.Type.INT),
         Column('title', Column.Type.TEXT),
         Column('subject_id', Column.Type.INT),
+        Column('student_id', Column.Type.INT),
         Column('date', Column.Type.INT),
     ).if_not_exists().also().create_table(
             'student',
             Column('s_id', Column.Type.INT, primary_key=True, autoincrement=True),
             Column('name', Column.Type.TEXT),
-            Column('subjects', Column.Type.TEXT),
             Column('group_id', Column.Type.INT),
         ).if_not_exists().also().create_table(
             'subject',
@@ -51,9 +52,14 @@ def main():
             'teacher',
             Column('teacher_id', Column.Type.INT, primary_key=True, autoincrement=True),
             Column('name', Column.Type.TEXT),
-            Column('subjects_ids', Column.Type.TEXT),
             Column('access_token', Column.Type.TEXT),
-        ).if_not_exists().exec()
+            Column('email', Column.Type.TEXT),
+            Column('password', Column.Type.TEXT),
+        ).if_not_exists().also().create_table(
+            'studentGroup',
+            Column('group_id', Column.Type.INT, primary_key=True, autoincrement=True),
+            Column('name', Column.Type.TEXT),
+        ).if_not_exists().execute()
 
 
 main()

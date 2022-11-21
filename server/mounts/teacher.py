@@ -14,20 +14,22 @@ db = Database(DB_NAME)
 @teacher.post('/')
 async def create_teacher(
         name: str,
-        subjects_ids: str,
+        email: str,
+        password: str,
         payload: AdminPayload
 ):
     """Creates a new teacher
 
     :param name: teacher name
-    :param subjects_ids: subjects IDs separated by ,
+    :param email: E-mail
+    :param password: account password
     :param payload: payload
     """
     if payload.admin_token != ADMIN_TOKEN:
         return {'error': 'You can not do it'}
-    db.insert_one('teacher', 'name', 'subjects_ids', 'access_token').values(
-        name, subjects_ids, Teacher.new_token()
-    )
+    last_id = db.insert_one('teacher', 'name', 'access_token', 'email', 'password').values(
+        name, Teacher.new_token(), email, password
+    ).exec()
     return {
-        'response': db.exec()
+        'response': last_id
     }

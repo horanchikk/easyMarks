@@ -21,7 +21,6 @@ class Database:
         self.con = connect(db_name)
         self.cur = self.con.cursor()
         self.query = ''
-        self.lastrowid = 0
 
     def also(self) -> 'Database':
         self.query += ';'
@@ -65,6 +64,7 @@ class Database:
 
     def exec(self) -> int:
         """Executes and commits"""
+        print(self.query)
         self.execute()
         self.commit()
         return self.cur.lastrowid
@@ -151,6 +151,8 @@ class Database:
         return self.to(self.fetch_one(), typed)
 
     def to(self, value: tuple | list, typed):
+        if value is None:
+            return None
         if isinstance(value, list):
             return [typed(*i) for i in value]
         return typed(*value)
