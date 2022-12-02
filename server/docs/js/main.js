@@ -45,7 +45,7 @@ function toggleSearchHeader(headerName) {
     console.log(headerName + '-arrow-down');
     console.log(arrowDown);
 
-    let collapsed = false;
+    let collapsed = true;
 
     [...searchHeaders].forEach(e => {
         const href = e.href.split('#')[1]
@@ -54,7 +54,7 @@ function toggleSearchHeader(headerName) {
                 e.style.display = 'block';
             }
             else {
-                collapsed = true;
+                collapsed = false;
                 e.style.display = 'none';
             }
         }
@@ -90,15 +90,18 @@ async function sendReq(urlParams, jsonBody, id, method, apiUrl) {
   if (!apiUrl.endsWith('/') && !path.startsWith('/'))
       apiUrl += '/';
 
+  let params = {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: method.split(' ')[0]
+  };
+  if (params.method === 'POST')
+    params.body = JSON.stringify(jsonBody)
+
   const response = await fetch(
-    `${apiUrl}${path}?` + new URLSearchParams(urlParams), {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: method.split(' ')[0],
-      body: JSON.stringify(jsonBody)
-    }
+    `${apiUrl}${path}?` + new URLSearchParams(urlParams), params
   )
   var elem = document.getElementById(id)
   elem.innerHTML = method + '\n\n' + JSON.stringify(await response.json(), null, 2)
