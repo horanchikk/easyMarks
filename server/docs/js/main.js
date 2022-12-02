@@ -7,24 +7,15 @@ var search = document.getElementById('search');
     methodsContainer = document.getElementById('methodsContainer');
     errorsContainer = document.getElementById('errorsContainer');
 
+
 if (errorsContainer != null) {
     errorsContainer.style.display = 'none';
     searchError.addEventListener('input', () => {
         let searched = searchError.value.toLowerCase();
         if (errors == null || errorLinks == null)
             return;
-        [...errors.children].forEach(e =>  {
-          if (e.outerHTML.toLowerCase().includes(searched))
-              e.style.display = 'flex';
-          else
-              e.style.display = 'none';
-        });
-        [...errorLinks.children].forEach(e =>  {
-          if (e.outerHTML.toLowerCase().includes(searched))
-              e.style.display = 'flex';
-          else
-              e.style.display = 'none';
-        });
+        displayStyle(errors);
+        displayStyle(errorLinks);
     });
 }
 
@@ -33,19 +24,35 @@ search.addEventListener('input', () => {
     let searched = search.value.toLowerCase();
     if (methods == null || links == null)
         return;
-    [...methods.children].forEach(e =>  {
-    if (e.outerHTML.toLowerCase().includes(searched))
-        e.style.display = 'flex';
-    else
-        e.style.display = 'none';
-    });
-    [...links.children].forEach(e =>  {
-    if (e.outerHTML.toLowerCase().includes(searched))
-        e.style.display = 'flex';
-    else
-        e.style.display = 'none';
-    });
+    displayStyle(methods);
+    displayStyle(links);
 });
+
+
+function displayStyle(elementContainer) {
+    [...elementContainer.children].forEach(e =>  {
+        if (e.outerHTML.toLowerCase().includes(searched))
+            e.style.display = 'flex';
+        else
+            e.style.display = 'none';
+    });
+}
+
+
+function toggleSearchHeader(headerName) {
+    const searchHeaders = document.getElementsByClassName('search-header');
+    [...searchHeaders].forEach(e => {
+        console.log(e.href);
+        console.log(headerName);
+        if (e.href.includes(headerName)) {
+            if (e.style.display != null || e.style.display == 'flex')
+                e.style.display = 'none';
+            else
+                e.style.display = 'flex';
+            console.log(e);
+        }
+    });
+}
 
 
 function goTo(container) {
@@ -61,10 +68,9 @@ function goTo(container) {
     }
 }
 
-async function sendReq(urlParams, jsonBody, id, method, api_url) {
+async function sendReq(urlParams, jsonBody, id, method, apiUrl) {
   var path = method.split(' ')[1]
 
-  console.log(path)
   for (key in urlParams) {
     console.log(key)
     if (path.includes(`{${key}}`)) {
@@ -72,10 +78,11 @@ async function sendReq(urlParams, jsonBody, id, method, api_url) {
         delete urlParams[key]
     }
   }
-  console.log(path)
+  if (!apiUrl.endsWith('/') && !path.starsWith('/'))
+      apiUrl += '/';
 
   const response = await fetch(
-    `${api_url}${path}?` + new URLSearchParams(urlParams), {
+    `${apiUrl}${path}?` + new URLSearchParams(urlParams), {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

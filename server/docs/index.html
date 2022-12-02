@@ -59,7 +59,7 @@
           >
             
               
-                <div class="flex justify-between w-full select-none">
+                <div class="flex justify-between w-full select-none" onclick="toggleSearchHeader('group')">
                   <a href="#group">- group</a>
                   <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                     <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -69,15 +69,15 @@
               
             
               
-                <a href="#create_new_group" class="indent-4 truncate">- Создает новую группу</a>
+                <a href="#create_new_group" class="indent-4 truncate search-header">- Создает новую группу</a>
               
             
               
-                <a href="#get_all_groups" class="indent-4 truncate">- Возвращает все группы</a>
+                <a href="#get_all_groups" class="indent-4 truncate search-header">- Возвращает все группы</a>
               
             
               
-                <div class="flex justify-between w-full select-none">
+                <div class="flex justify-between w-full select-none" onclick="toggleSearchHeader('mark')">
                   <a href="#mark">- mark</a>
                   <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                     <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -87,15 +87,15 @@
               
             
               
-                <a href="#get_mark_by_id" class="indent-4 truncate">- Получить оценку по ID</a>
+                <a href="#get_mark_by_id" class="indent-4 truncate search-header">- Получить оценку по ID</a>
               
             
               
-                <a href="#add_mark" class="indent-4 truncate">- Поставить оценку студенту</a>
+                <a href="#add_mark" class="indent-4 truncate search-header">- Поставить оценку студенту</a>
               
             
               
-                <div class="flex justify-between w-full select-none">
+                <div class="flex justify-between w-full select-none" onclick="toggleSearchHeader('student')">
                   <a href="#student">- student</a>
                   <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                     <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -105,19 +105,19 @@
               
             
               
-                <a href="#get_student_by_id" class="indent-4 truncate">- Получить студента по ID</a>
+                <a href="#get_student_by_id" class="indent-4 truncate search-header">- Получить студента по ID</a>
               
             
               
-                <a href="#get_student_by_group" class="indent-4 truncate">- Получить группу по ID</a>
+                <a href="#get_student_by_group" class="indent-4 truncate search-header">- Получить группу по ID</a>
               
             
               
-                <a href="#create_student" class="indent-4 truncate">- Создание студента</a>
+                <a href="#create_student" class="indent-4 truncate search-header">- Создание студента</a>
               
             
               
-                <div class="flex justify-between w-full select-none">
+                <div class="flex justify-between w-full select-none" onclick="toggleSearchHeader('subject')">
                   <a href="#subject">- subject</a>
                   <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                     <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -127,15 +127,19 @@
               
             
               
-                <a href="#get_subject" class="indent-4 truncate">- Получает предмет по ID</a>
+                <a href="#get_subject" class="indent-4 truncate search-header">- Получает предмет по ID</a>
               
             
               
-                <a href="#create_subject" class="indent-4 truncate">- Создание предмета</a>
+                <a href="#get_marks_by_subject_id" class="indent-4 truncate search-header">- Получение всех оценок по предмету и группе</a>
               
             
               
-                <div class="flex justify-between w-full select-none">
+                <a href="#create_subject" class="indent-4 truncate search-header">- Создание предмета</a>
+              
+            
+              
+                <div class="flex justify-between w-full select-none" onclick="toggleSearchHeader('teacher')">
                   <a href="#teacher">- teacher</a>
                   <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                     <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -145,15 +149,15 @@
               
             
               
-                <a href="#create_teacher" class="indent-4 truncate">- Создание преподавателя</a>
+                <a href="#create_teacher" class="indent-4 truncate search-header">- Создание преподавателя</a>
               
             
               
-                <a href="#get_teacher_by_id" class="indent-4 truncate">- Получить преподавателя по ID</a>
+                <a href="#get_teacher_by_id" class="indent-4 truncate search-header">- Получить преподавателя по ID</a>
               
             
               
-                <a href="#login_teacher" class="indent-4 truncate">- Вход через преподавателя</a>
+                <a href="#login_teacher" class="indent-4 truncate search-header">- Вход через преподавателя</a>
               
             
           </div>
@@ -983,6 +987,109 @@
               <!-- Method description -->
               <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 325ms">
                 <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="get_marks_by_subject_id" class="cursor-pointer select-none">Получение всех оценок по предмету и группе</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            subject_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID предмета</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            group_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID группы</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_get_marks_by_subject_id"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET subject/marks{subject_id}:{group_id} HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_get_marks_by_subject_id_subject_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_get_marks_by_subject_id_subject_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              subject_id
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_get_marks_by_subject_id_group_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_get_marks_by_subject_id_group_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              group_id
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'subject_id': document.getElementById('input_get_marks_by_subject_id_subject_id').value,
+                                      
+                                      'group_id': document.getElementById('input_get_marks_by_subject_id_group_id').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_get_marks_by_subject_id', 'GET subject/marks{subject_id}:{group_id} HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 350ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
                   <span id="create_subject" class="cursor-pointer select-none">Создание предмета</span>
                   
                 </div>
@@ -1148,7 +1255,7 @@
               <div
                 id="teacher"
                 class="flex w-full font-black justify-center desktop:text-5xl tablet:text-4xl mobile:text-3xl method-on-load py-4"
-                style="animation-delay: 350ms"
+                style="animation-delay: 375ms"
               >
                 # teacher
               </div>
@@ -1156,7 +1263,7 @@
           
             
               <!-- Method description -->
-              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 375ms">
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 400ms">
                 <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
                   <span id="create_teacher" class="cursor-pointer select-none">Создание преподавателя</span>
                   
@@ -1321,7 +1428,7 @@
           
             
               <!-- Method description -->
-              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 400ms">
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 425ms">
                 <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
                   <span id="get_teacher_by_id" class="cursor-pointer select-none">Получить преподавателя по ID</span>
                   
@@ -1397,7 +1504,7 @@
           
             
               <!-- Method description -->
-              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 425ms">
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 450ms">
                 <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
                   <span id="login_teacher" class="cursor-pointer select-none">Вход через преподавателя</span>
                   
@@ -1431,7 +1538,7 @@
                   <pre><code
                       id="result_login_teacher"
                       class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
-                    >GET teacher/auth HTTP/1.1</code></pre>
+                    >POST teacher/auth HTTP/1.1</code></pre>
                   <div class="flex">
                     <div class="flex flex-col gap-2 w-1/2">
                       
@@ -1490,7 +1597,7 @@
                                       
                                     }, {
                                       
-                                    }, 'result_login_teacher', 'GET teacher/auth HTTP/1.1', 'http://localhost:8000')"
+                                    }, 'result_login_teacher', 'POST teacher/auth HTTP/1.1', 'http://localhost:8000')"
                   >
                     send
                   </div>
@@ -1569,6 +1676,12 @@
                   href="#error8"
                 >
                   - Wrong Email
+                </a>
+              
+                <a
+                  href="#error9"
+                >
+                  - Invalid Group Id
                 </a>
               
             </div>
@@ -1670,6 +1783,17 @@
                 </div>
                 <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
                   <span>&#34;Wrong email&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 250ms">
+                <div id="error9" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">9</span>
+                  <span class="flex justify-center w-full">Invalid Group Id</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;Invalid group ID&#34;</span>
                   
                 </div>
               </div>

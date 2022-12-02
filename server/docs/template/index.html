@@ -59,7 +59,7 @@
           >
             {% for method in methods %}
               {% if method is string %}
-                <div class="flex justify-between w-full select-none">
+                <div class="flex justify-between w-full select-none" onclick="toggleSearchHeader('{{method}}')">
                   <a href="#{{ method }}">- {{ method }}</a>
                   <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                     <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -67,7 +67,7 @@
                   </svg>
                 </div>
               {% else %}
-                <a href="#{{ method.id }}" class="indent-4 truncate">- {{ method.name }}</a>
+                <a href="#{{ method.id }}" class="indent-4 truncate search-header">- {{ method.name }}</a>
               {% endif %}
             {% endfor %}
           </div>
@@ -132,7 +132,7 @@
                     >{{ method.http }}</code></pre>
                   <div class="flex">
                     <div class="flex flex-col gap-2 w-1/2">
-                      {%if method.params%}
+                      {% if method.params %}
                         <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
                         {% for param in method.params %}
                           <div class="relative group">

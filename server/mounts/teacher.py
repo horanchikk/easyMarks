@@ -50,7 +50,7 @@ async def get_teacher_by_id(teacher_id: int):
     }
 
 
-@teacher.get('/auth')
+@teacher.post('/auth')
 async def login_teacher(email: str, password: str):
     """Вход через преподавателя
 

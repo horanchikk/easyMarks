@@ -159,7 +159,6 @@ def _tailwind_config_update(config_file: str, colors: dict):
         data = f.read()
     for key, value in colors.items():
         data = re.sub(r'(' + key + r")'\s*:\s*'(#[a-f0-9A-F]+)", r"\1': '" + value, data)
-        print(data)
     with open(config_file, 'w', encoding='utf-8') as f:
         f.write(data)
 

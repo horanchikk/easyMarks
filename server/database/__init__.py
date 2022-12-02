@@ -27,6 +27,7 @@ class Database:
     def __getitem__(self, item: str) -> 'Database':
         table = Database(self.db_name)
         table.table = item
+        return self
 
     def also(self) -> 'Database':
         self.query += ';'
