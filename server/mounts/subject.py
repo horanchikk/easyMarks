@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from fastapi import FastAPI
 
-from database import Database, Column, Val
+from database import Database, Val
 from database.types.group import Group
 from database.types.mark import Mark
 from database.types.student import Student
