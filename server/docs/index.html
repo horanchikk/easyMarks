@@ -148,6 +148,14 @@
                 <a href="#create_teacher" class="indent-4 truncate">- Создание преподавателя</a>
               
             
+              
+                <a href="#get_teacher_by_id" class="indent-4 truncate">- Получить преподавателя по ID</a>
+              
+            
+              
+                <a href="#login_teacher" class="indent-4 truncate">- Вход через преподавателя</a>
+              
+            
           </div>
         </div>
         <!-- Methods list -->
@@ -1311,6 +1319,185 @@
               </div>
             
           
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 400ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="get_teacher_by_id" class="cursor-pointer select-none">Получить преподавателя по ID</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            teacher_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID преподавателя</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_get_teacher_by_id"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET teacher/id{teacher_id} HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_get_teacher_by_id_teacher_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_get_teacher_by_id_teacher_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              teacher_id
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'teacher_id': document.getElementById('input_get_teacher_by_id_teacher_id').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_get_teacher_by_id', 'GET teacher/id{teacher_id} HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 425ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="login_teacher" class="cursor-pointer select-none">Вход через преподавателя</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            email <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>E-mail преподавателя</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            password <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>Пароль</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_login_teacher"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET teacher/auth HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_login_teacher_email"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_login_teacher_email"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              email
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_login_teacher_password"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_login_teacher_password"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              password
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'email': document.getElementById('input_login_teacher_email').value,
+                                      
+                                      'password': document.getElementById('input_login_teacher_password').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_login_teacher', 'GET teacher/auth HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
         </div>
       </div>
       <!-- Errors -->
@@ -1370,6 +1557,18 @@
                   href="#error6"
                 >
                   - This Student Has Nt Sbj
+                </a>
+              
+                <a
+                  href="#error7"
+                >
+                  - Wrong Password
+                </a>
+              
+                <a
+                  href="#error8"
+                >
+                  - Wrong Email
                 </a>
               
             </div>
@@ -1449,6 +1648,28 @@
                 </div>
                 <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
                   <span>&#34;This student hasn&#39;t this subject&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 200ms">
+                <div id="error7" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">7</span>
+                  <span class="flex justify-center w-full">Wrong Password</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;Wrong password&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 225ms">
+                <div id="error8" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">8</span>
+                  <span class="flex justify-center w-full">Wrong Email</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;Wrong email&#34;</span>
                   
                 </div>
               </div>
