@@ -129,7 +129,7 @@ class Database:
 
     def where(self, *values: Val) -> 'Database':
         """Adds where syntax to query"""
-        self.query += f' WHERE {",".join(str(i) for i in values)}'
+        self.query += f' WHERE {" and ".join(str(i) for i in values)}'
         return self
 
     def limit(self, count: int, offset: int = 0) -> 'Database':
@@ -161,9 +161,11 @@ class Database:
         return result
 
     def fetch_to(self, typed):
+        print(self.query)
         return self.to(self.fetch(), typed)
 
     def fetch_one_to(self, typed):
+        print(self.query)
         return self.to(self.fetch_one(), typed)
 
     def to(self, value: tuple | list, typed):

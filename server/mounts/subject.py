@@ -35,11 +35,11 @@ async def subject_get_marks(subject_id: int, group_id: int):
     subj: Subject = db.select().where(Val('s_id', subject_id)).fetch_one_to(Subject)
     if subj is None:
         return HttpError.INVALID_SUBJECT_ID
-    g: Group = db.select('group').where(Val('group_id', group_id)).fetch_one_to(Group)
+    g: Group = db.select('studentGroup').where(Val('group_id', group_id)).fetch_one_to(Group)
     if g is None:
         return HttpError.INVALID_GROUP_ID
-    students: list[Student] = db.select('student').where(Val('group', g.group_id)).fetch_to(Student)
-    marks: dict[Mark] = []
+    students: list[Student] = db.select('student').where(Val('group_id', g.group_id)).fetch_to(Student)
+    marks: dict[Mark] = {}
     for s in students:
         _marks: list[Mark] = db.select('mark').where(
             Val('student_id', s.s_id), Val('subject_id', subject_id)

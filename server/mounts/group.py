@@ -8,7 +8,7 @@ from exceptions import HttpError
 from models import AdminPayloadModel
 
 group = FastAPI(docs_url=None, redoc_url=None)
-db = Database(DB_NAME)
+db = Database(DB_NAME)['studentGroup']
 
 
 @group.post('/')
@@ -33,7 +33,7 @@ async def group_create(
 async def group_get_all():
     """Возвращает все группы
     """
-    result = db.select('group').fetch_to(Group)
+    result = db.select().fetch_to(Group)
     return {
         'response': {
             'items': [i.dict() for i in result],
