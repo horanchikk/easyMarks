@@ -97,7 +97,7 @@ async function sendReq(urlParams, jsonBody, id, method, apiUrl) {
         'Content-Type': 'application/json'
       },
       method: method.split(' ')[0],
-      json: jsonBody
+      body: JSON.stringify(jsonBody)
     }
   )
   var elem = document.getElementById(id)
