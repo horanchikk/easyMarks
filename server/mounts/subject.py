@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from database import Database, Column, Val
 from database.types.subject import Subject
 from config import DB_NAME, ADMIN_TOKEN
-from models import AdminPayload
+from exceptions import HttpError
+from models import AdminPayloadModel
 
 subject = FastAPI(redoc_url=None, docs_url=None)
 
@@ -13,14 +14,12 @@ db = Database(DB_NAME)
 
 @subject.get('/id{subject_id}')
 async def get_subject(subject_id: int):
-    """Finds subject by ID
+    """Получает предмет по ID
 
-    :param subject_id: subject ID
+    :param subject_id: ID предмета
     """
-    subject = db.select('subject').where(Val('s_id', subject_id)).fetch_one_to(Subject)
-    return {
-        'response': subject.dict()
-    }
+    s = db.select('subject').where(Val('s_id', subject_id)).fetch_one_to(Subject)
+    return { 'response': s.dict() }
 
 
 @subject.post('/')
@@ -28,17 +27,17 @@ async def create_subject(
         title: str,
         teacher_id: int,
         groups: str,
-        payload: AdminPayload
+        payload: AdminPayloadModel
 ):
-    """Creates a new subject
+    """Создание предмета
 
-    :param title: subject name
-    :param teacher_id: Teacher ID
-    :param groups: Group IDs separated by ,
-    :param payload: payload
+    :param title: название предмета
+    :param teacher_id: ID преподавателя
+    :param groups: список ID групп через запятую
+    :param payload: полезная нагрузка
     """
     if payload.admin_token != ADMIN_TOKEN:
-        return {'error': 'You can not do it'}
+        return HttpError.ADMIN_ACCESS_REQUIRE
     last_id = db.insert_one(
         'subject', 'title', 'teacher_id', 'groups'
     ).values(title, teacher_id, groups).exec()

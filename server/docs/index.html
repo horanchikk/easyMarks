@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mark_System::Docs</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./docs/js/tailwind.config.js"></script>
+  <!-- Highlight.js include -->
+  <script src="./docs/js/highlight.min.js"></script>
+  <script src="./docs/js/http.min.js"></script>
+  <link rel="stylesheet" href="./docs/style/vs2015.min.css">
+  <link rel="stylesheet" href="./docs/style/main.css">
+</head>
+  <body
+    id="background"
+    class="flex flex-col font-semibold bg-back text-fore scroll-smooth transition-all selection:bg-fore/[0.2] selection:rounded-lg break-words"
+  >
+    <header
+      class="flex flex-col gap-4 w-full desktop:text-7xl tablet:text-6xl mobile:text-5xl items-center p-4 title-on-load"
+    >
+      Mark_System::Docs
+      <div class="h-[1px] desktop:w-1/3 tablet:w-2/3 mobile:w-4/5 bg-fore"></div>
+      <div
+        class="flex gap-3 w-full desktop:p-4 transition-transform justify-center
+               desktop:items-center tablet:items-end mobile:items-center
+               desktop:text-3xl tablet:text-2xl mobile:text-xl"
+      >
+        <button onclick="goTo('methods')" class="cursor-pointer select-none hover:scale-105 active:scale-95">
+          METHODS
+        </button>
+        
+          <button onclick="goTo('errors')" class="cursor-pointer select-none hover:scale-105 active:scale-95">
+            ERRORS
+          </button>
+        
+      </div>
+    </header>
+    <main class="flex flex-row gap-3 w-full h-full pt-16">
+      <!-- All methods -->
+      <div id="methodsContainer" class="flex mobile:flex-col w-full h-full">
+        <!-- Search -->
+          <div
+          id="content"
+          class="flex flex-col gap-3 desktop:w-1/4 tablet:w-1/3 mobile:w-full ml-8 mobile:m-0 p-4
+                 rounded-md bg-white/[0.01] h-fit sidebar-on-load"
+        >
+          <input
+            id="search"
+            type="search"
+            placeholder="Поиск метода ..."
+            class="rounded-md bg-fore/[0.3] p-2 mb-4 active:border-0"
+          >
+          <div
+            id="links"
+            class="flex flex-col gap-3 mobile:hidden"
+          >
+            
+              
+                <div class="flex justify-between w-full select-none">
+                  <a href="#group">- group</a>
+                  <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
+                    <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/>
+                  </svg>
+                </div>
+              
+            
+              
+                <a href="#create_new_group" class="indent-4 truncate">- Создает новую группу</a>
+              
+            
+              
+                <a href="#get_all_groups" class="indent-4 truncate">- Возвращает все группы</a>
+              
+            
+              
+                <div class="flex justify-between w-full select-none">
+                  <a href="#mark">- mark</a>
+                  <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
+                    <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/>
+                  </svg>
+                </div>
+              
+            
+              
+                <a href="#get_mark_by_id" class="indent-4 truncate">- Получить оценку по ID</a>
+              
+            
+              
+                <a href="#add_mark" class="indent-4 truncate">- Поставить оценку студенту</a>
+              
+            
+              
+                <div class="flex justify-between w-full select-none">
+                  <a href="#student">- student</a>
+                  <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
+                    <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/>
+                  </svg>
+                </div>
+              
+            
+              
+                <a href="#get_student_by_id" class="indent-4 truncate">- Получить студента по ID</a>
+              
+            
+              
+                <a href="#get_student_by_group" class="indent-4 truncate">- Получить группу по ID</a>
+              
+            
+              
+                <a href="#create_student" class="indent-4 truncate">- Создание студента</a>
+              
+            
+              
+                <div class="flex justify-between w-full select-none">
+                  <a href="#subject">- subject</a>
+                  <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
+                    <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/>
+                  </svg>
+                </div>
+              
+            
+              
+                <a href="#get_subject" class="indent-4 truncate">- Получает предмет по ID</a>
+              
+            
+              
+                <a href="#create_subject" class="indent-4 truncate">- Создание предмета</a>
+              
+            
+              
+                <div class="flex justify-between w-full select-none">
+                  <a href="#teacher">- teacher</a>
+                  <svg class="fill-fore cursor-pointer hover:scale-105 active:scale-95 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
+                    <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/>
+                  </svg>
+                </div>
+              
+            
+              
+                <a href="#create_teacher" class="indent-4 truncate">- Создание преподавателя</a>
+              
+            
+          </div>
+        </div>
+        <!-- Methods list -->
+        <div id="methods" class="flex flex-col gap-2 desktop:gap-4 desktop:w-1/2 tablet:w-2/3 mobile:w-full">
+          
+            
+              <div
+                id="group"
+                class="flex w-full font-black justify-center desktop:text-5xl tablet:text-4xl mobile:text-3xl method-on-load py-4"
+                style="animation-delay: 25ms"
+              >
+                # group
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 50ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="create_new_group" class="cursor-pointer select-none">Создает новую группу</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">JSON Body</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            admin_token <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td></td>
+                        </tr>
+                        
+                      </table>
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            name <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>название группы</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_create_new_group"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >POST group/ HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_new_group_name"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_new_group_name"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              name
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg text-end w-full">JSON</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_json_create_new_group_admin_token"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_json_create_new_group_admin_token"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              admin_token
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'name': document.getElementById('input_create_new_group_name').value,
+                                      
+                                    }, {
+                                      
+                                      'admin_token': document.getElementById('input_json_create_new_group_admin_token').value,
+                                      
+                                    }, 'result_create_new_group', 'POST group/ HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 75ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="get_all_groups" class="cursor-pointer select-none">Возвращает все группы</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                  </div>
+                  <pre><code
+                      id="result_get_all_groups"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET group/all HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                    }, {
+                                      
+                                    }, 'result_get_all_groups', 'GET group/all HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <div
+                id="mark"
+                class="flex w-full font-black justify-center desktop:text-5xl tablet:text-4xl mobile:text-3xl method-on-load py-4"
+                style="animation-delay: 100ms"
+              >
+                # mark
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 125ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="get_mark_by_id" class="cursor-pointer select-none">Получить оценку по ID</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            m_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID оценки</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_get_mark_by_id"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET mark/id{m_id} HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_get_mark_by_id_m_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_get_mark_by_id_m_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              m_id
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'm_id': document.getElementById('input_get_mark_by_id_m_id').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_get_mark_by_id', 'GET mark/id{m_id} HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 150ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="add_mark" class="cursor-pointer select-none">Поставить оценку студенту</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            student_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID студента</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            subject_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID предмета</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            title <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>за что оценка</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            score <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>оценка</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            access_token <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>токен преподавателя</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_add_mark"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >POST mark/ HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_add_mark_student_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_add_mark_student_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              student_id
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_add_mark_subject_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_add_mark_subject_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              subject_id
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_add_mark_title"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_add_mark_title"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              title
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_add_mark_score"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_add_mark_score"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              score
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_add_mark_access_token"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_add_mark_access_token"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              access_token
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'student_id': document.getElementById('input_add_mark_student_id').value,
+                                      
+                                      'subject_id': document.getElementById('input_add_mark_subject_id').value,
+                                      
+                                      'title': document.getElementById('input_add_mark_title').value,
+                                      
+                                      'score': document.getElementById('input_add_mark_score').value,
+                                      
+                                      'access_token': document.getElementById('input_add_mark_access_token').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_add_mark', 'POST mark/ HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <div
+                id="student"
+                class="flex w-full font-black justify-center desktop:text-5xl tablet:text-4xl mobile:text-3xl method-on-load py-4"
+                style="animation-delay: 175ms"
+              >
+                # student
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 200ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="get_student_by_id" class="cursor-pointer select-none">Получить студента по ID</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            student_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID студента</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_get_student_by_id"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET student/id{student_id} HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_get_student_by_id_student_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_get_student_by_id_student_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              student_id
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'student_id': document.getElementById('input_get_student_by_id_student_id').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_get_student_by_id', 'GET student/id{student_id} HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 225ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="get_student_by_group" class="cursor-pointer select-none">Получить группу по ID</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            group_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID группы</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_get_student_by_group"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET student/group{group_id} HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_get_student_by_group_group_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_get_student_by_group_group_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              group_id
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'group_id': document.getElementById('input_get_student_by_group_group_id').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_get_student_by_group', 'GET student/group{group_id} HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 250ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="create_student" class="cursor-pointer select-none">Создание студента</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">JSON Body</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            admin_token <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td></td>
+                        </tr>
+                        
+                      </table>
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            name <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>ФИО студента</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            group_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID группы</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_create_student"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >POST student/ HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_student_name"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_student_name"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              name
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_student_group_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_student_group_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              group_id
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg text-end w-full">JSON</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_json_create_student_admin_token"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_json_create_student_admin_token"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              admin_token
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'name': document.getElementById('input_create_student_name').value,
+                                      
+                                      'group_id': document.getElementById('input_create_student_group_id').value,
+                                      
+                                    }, {
+                                      
+                                      'admin_token': document.getElementById('input_json_create_student_admin_token').value,
+                                      
+                                    }, 'result_create_student', 'POST student/ HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <div
+                id="subject"
+                class="flex w-full font-black justify-center desktop:text-5xl tablet:text-4xl mobile:text-3xl method-on-load py-4"
+                style="animation-delay: 275ms"
+              >
+                # subject
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 300ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="get_subject" class="cursor-pointer select-none">Получает предмет по ID</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            subject_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID предмета</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_get_subject"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >GET subject/id{subject_id} HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_get_subject_subject_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_get_subject_subject_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              subject_id
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'subject_id': document.getElementById('input_get_subject_subject_id').value,
+                                      
+                                    }, {
+                                      
+                                    }, 'result_get_subject', 'GET subject/id{subject_id} HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 325ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="create_subject" class="cursor-pointer select-none">Создание предмета</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">JSON Body</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            admin_token <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td></td>
+                        </tr>
+                        
+                      </table>
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            title <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>название предмета</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            teacher_id <span class="text-sm text-green-200">int</span>
+                          </td>
+                          <td>ID преподавателя</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            groups <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>список ID групп через запятую</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_create_subject"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >POST subject/ HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_subject_title"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_subject_title"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              title
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_subject_teacher_id"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_subject_teacher_id"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              teacher_id
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_subject_groups"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_subject_groups"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              groups
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg text-end w-full">JSON</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_json_create_subject_admin_token"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_json_create_subject_admin_token"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              admin_token
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'title': document.getElementById('input_create_subject_title').value,
+                                      
+                                      'teacher_id': document.getElementById('input_create_subject_teacher_id').value,
+                                      
+                                      'groups': document.getElementById('input_create_subject_groups').value,
+                                      
+                                    }, {
+                                      
+                                      'admin_token': document.getElementById('input_json_create_subject_admin_token').value,
+                                      
+                                    }, 'result_create_subject', 'POST subject/ HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+              <div
+                id="teacher"
+                class="flex w-full font-black justify-center desktop:text-5xl tablet:text-4xl mobile:text-3xl method-on-load py-4"
+                style="animation-delay: 350ms"
+              >
+                # teacher
+              </div>
+            
+          
+            
+              <!-- Method description -->
+              <div class="flex flex-row gap-2 method-on-load" style="animation-delay: 375ms">
+                <div class="flex flex-col rounded-md desktop:text-2xl tablet:text-xl mobile:text-base w-1/3 bg-white/[0.01] gap-4 p-4">
+                  <span id="create_teacher" class="cursor-pointer select-none">Создание преподавателя</span>
+                  
+                </div>
+                <div class="flex flex-col gap-4 w-2/3 h-full">
+                  <div class="flex flex-col gap-2 desktop:text-lg tablet:text-base mobile:text-sm">
+                    <!-- JSON data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">JSON Body</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            admin_token <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td></td>
+                        </tr>
+                        
+                      </table>
+                    
+                    <!-- params data -->
+                    
+                      <table class="w-full table-fixed">
+                        <tr><td colspan="2" class="text-center">Параметры</td></tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            name <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>ФИО преподавателя</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            email <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>E-mail преподавателя</td>
+                        </tr>
+                        
+                        <tr>
+                          <td class="text-red-400">
+                            password <span class="text-sm text-green-200">str</span>
+                          </td>
+                          <td>пароль</td>
+                        </tr>
+                        
+                      </table>
+                    
+                  </div>
+                  <pre><code
+                      id="result_create_teacher"
+                      class="language-http desktop:text-base tablet:text-sm mobile:text-xs"
+                    >POST teacher/ HTTP/1.1</code></pre>
+                  <div class="flex">
+                    <div class="flex flex-col gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg w-full">PARAMS</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_teacher_name"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_teacher_name"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              name
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_teacher_email"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_teacher_email"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              email
+                            </label>
+                          </div>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_create_teacher_password"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_create_teacher_password"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              password
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                    <div class="flex flex-col items-end gap-2 w-1/2">
+                      
+                        <span class="desktop:text-2xl tablet:text-xl mobile:text-lg text-end w-full">JSON</span>
+                        
+                          <div class="relative group">
+                            <input
+                              type="text"
+                              id="input_json_create_teacher_admin_token"
+                              required
+                              class="outline-0 bg-fore/[0.3] w-fit rounded-lg px-2 peer desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                            <label
+                              for="input_json_create_teacher_admin_token"
+                              class="transform transition-all absolute top-0 left-0 h-full flex items-center
+                                    pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2
+                                    peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full
+                                    group-focus-within:pl-0 peer-valid:pl-0 desktop:text-xl tablet:text-lg mobile:text-base"
+                            >
+                              admin_token
+                            </label>
+                          </div>
+                        
+                      
+                    </div>
+                  </div>
+                  <!-- Send request button -->
+                  <div
+                    class="place-self-center select-none flex w-full bg-fore text-back justify-center rounded-full px-4 py-1
+                          cursor-pointer hover:scale-105 active:scale-95 transition-all font-extrabold"
+                    onclick="sendReq({ 
+                                      'name': document.getElementById('input_create_teacher_name').value,
+                                      
+                                      'email': document.getElementById('input_create_teacher_email').value,
+                                      
+                                      'password': document.getElementById('input_create_teacher_password').value,
+                                      
+                                    }, {
+                                      
+                                      'admin_token': document.getElementById('input_json_create_teacher_admin_token').value,
+                                      
+                                    }, 'result_create_teacher', 'POST teacher/ HTTP/1.1', 'http://localhost:8000')"
+                  >
+                    send
+                  </div>
+                </div>
+              </div>
+            
+          
+        </div>
+      </div>
+      <!-- Errors -->
+      
+        <div id="errorsContainer" class="flex w-full flex-row mobile:flex-col justify-center">
+          <div class="flex flex-col gap-3 desktop:w-1/6 tablet:w-1/5 mobile:w-full ml-8 mobile:m-0 p-4
+                      rounded-md bg-white/[0.01] h-fit sidebar-on-load"
+          >
+            <input
+              id="searchError"
+              type="search"
+              placeholder="Поиск ошибки ..."
+              class="rounded-md bg-fore/[0.3] p-2 mb-4 active:border-0"
+            >
+            <div
+              id="errorLinks"
+              class="flex flex-col gap-3 mobile:hidden"
+            >
+              
+                <a
+                  href="#error0"
+                >
+                  - Admin Access Require
+                </a>
+              
+                <a
+                  href="#error1"
+                >
+                  - Wrong Access Token
+                </a>
+              
+                <a
+                  href="#error2"
+                >
+                  - Invalid Subject Id
+                </a>
+              
+                <a
+                  href="#error3"
+                >
+                  - Invalid Student Id
+                </a>
+              
+                <a
+                  href="#error4"
+                >
+                  - Has Nt Subject
+                </a>
+              
+                <a
+                  href="#error5"
+                >
+                  - Not Access To This Subject
+                </a>
+              
+                <a
+                  href="#error6"
+                >
+                  - This Student Has Nt Sbj
+                </a>
+              
+            </div>
+          </div>
+          <div id="errors" class="flex flex-col gap-2 w-full items-center">
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 25ms">
+                <div id="error0" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">0</span>
+                  <span class="flex justify-center w-full">Admin Access Require</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;You hasn&#39;t access&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 50ms">
+                <div id="error1" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">1</span>
+                  <span class="flex justify-center w-full">Wrong Access Token</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;Wrong access token&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 75ms">
+                <div id="error2" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">2</span>
+                  <span class="flex justify-center w-full">Invalid Subject Id</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;Invalid subject ID&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 100ms">
+                <div id="error3" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">3</span>
+                  <span class="flex justify-center w-full">Invalid Student Id</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;Invalid student ID&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 125ms">
+                <div id="error4" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">4</span>
+                  <span class="flex justify-center w-full">Has Nt Subject</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;This student hasn&#39;t this subject&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 150ms">
+                <div id="error5" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">5</span>
+                  <span class="flex justify-center w-full">Not Access To This Subject</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;Haven&#39;t access to this subject&#34;</span>
+                  
+                </div>
+              </div>
+            
+              <div class="flex desktop:w-1/2 tablet:w-3/4 mobile:w-full gap-2 method-on-load" style="animation-delay: 175ms">
+                <div id="error6" class="flex gap-2 w-1/3 bg-fore/[0.1] rounded-lg p-4 text-center">
+                  <span class="flex place-self-start text-purple-300">6</span>
+                  <span class="flex justify-center w-full">This Student Has Nt Sbj</span>
+                </div>
+                <div class="flex flex-col w-2/3 bg-fore/[0.05] rounded-lg p-4 text-center">
+                  <span>&#34;This student hasn&#39;t this subject&#34;</span>
+                  
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      
+    </main>
+    <!-- Main JS -->
+    <script src="./docs/js/main.js"></script>
+    <script>hljs.highlightAll()</script>
+  </body>
+</html>

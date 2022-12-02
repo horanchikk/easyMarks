@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from config import DB_NAME, ADMIN_TOKEN
 from database import Database
 from database.types.group import Group
-from models import AdminPayload
+from exceptions import HttpError
+from models import AdminPayloadModel
 
 group = FastAPI(docs_url=None, redoc_url=None)
 db = Database(DB_NAME)
@@ -13,15 +14,15 @@ db = Database(DB_NAME)
 @group.post('/')
 async def create_new_group(
         name: str,
-        payload: AdminPayload
+        payload: AdminPayloadModel
 ):
-    """Creates a new group
+    """Создает новую группу
 
-    :param name: group name
-    :param payload: Admin payload with token
+    :param name: название группы
+    :param payload: полезная нагрузка
     """
     if payload.admin_token != ADMIN_TOKEN:
-        return {'error': 'You can not do it'}
+        return HttpError.ADMIN_ACCESS_REQUIRE
     result = db.insert_one('studentGroup', 'name').values(name).exec()
     return {
         'response': result
@@ -30,7 +31,8 @@ async def create_new_group(
 
 @group.get('/all')
 async def get_all_groups():
-    """Returns all groups"""
+    """Возвращает все группы
+    """
     result = db.select('group').fetch_to(Group)
     return {
         'response': {

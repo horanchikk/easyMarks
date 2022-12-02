@@ -18,9 +18,15 @@ class Database:
         """
         if not db_name.endswith('.db'):
             db_name += '.db'
+        self.db_name = db_name
         self.con = connect(db_name)
         self.cur = self.con.cursor()
         self.query = ''
+        self.table = ''
+
+    def __getitem__(self, item: str) -> 'Database':
+        table = Database(self.db_name)
+        table.table = item
 
     def also(self) -> 'Database':
         self.query += ';'
@@ -30,13 +36,15 @@ class Database:
         """Clears query"""
         self.query = ''
 
-    def row_count(self, table: str) -> int:
+    def row_count(self, table: str = '') -> int:
         """Returns table length"""
+        if not table:
+            table = self.table
         return len(self.cur.execute(f'SELECT * FROM {table}').fetchall())
 
     def create_table(
             self,
-            name: str,
+            name: str = '',
             *columns: Column
     ) -> 'Database':
         """Creates table with specified columns
@@ -44,6 +52,8 @@ class Database:
         :param name: table name
         :param columns: list of Column objects
         """
+        if not name:
+            name = self.table
         data = ','.join([str(i) for i in columns])
         self.query += f'CREATE TABLE {name} ({data})'
         return self
@@ -64,22 +74,25 @@ class Database:
 
     def exec(self) -> int:
         """Executes and commits"""
-        print(self.query)
         self.execute()
         self.commit()
         return self.cur.lastrowid
 
-    def insert_one(self, table: str, *columns: str) -> 'Database':
+    def insert_one(self, table: str = '', *columns: str) -> 'Database':
         """Insert one row into table
 
         :param table: table name
         :param columns: column names
         """
+        if not table:
+            table = self.table
         self.query += f'INSERT INTO {table} ({",".join(columns)})'
         return self
 
-    def update_one(self, table: str) -> 'Database':
+    def update_one(self, table: str = '') -> 'Database':
         """Updates one row"""
+        if not table:
+            table = self.table
         self.query += f'UPDATE {table}'
         return self
 
@@ -103,11 +116,13 @@ class Database:
         self.query += f' SET {",".join(str(i) for i in values)}'
         return self
 
-    def select(self, table: str) -> 'Database':
+    def select(self, table: str = '') -> 'Database':
         """Select from table
 
         :param table: table name
         """
+        if not table:
+            table = self.table
         self.query += f" SELECT * FROM {table}"
         return self
 

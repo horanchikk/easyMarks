@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from database import Database, Val
 from database.types.student import Student
 from config import DB_NAME, ADMIN_TOKEN
-from models import AdminPayload
+from exceptions import HttpError
+from models import AdminPayloadModel
 
 student = FastAPI(docs_url=None, redoc_url=None)
 db = Database(DB_NAME)
@@ -12,9 +13,9 @@ db = Database(DB_NAME)
 
 @student.get('/id{student_id}')
 async def get_student_by_id(student_id: int):
-    """Finds user by its ID
+    """Получить студента по ID
 
-    :param student_id: Student ID
+    :param student_id: ID студента
     """
     result = db.select('student').where(Val('s_id', student_id)).fetch_one_to(Student)
     return {
@@ -24,9 +25,9 @@ async def get_student_by_id(student_id: int):
 
 @student.get('/group{group_id}')
 async def get_student_by_group(group_id: int):
-    """Finds users by group ID
+    """Получить группу по ID
 
-    :param group_id: Group ID
+    :param group_id: ID группы
     """
     result = db.select('student').where(Val('group_id', group_id)).fetch_to(Student)
     return {
@@ -38,19 +39,19 @@ async def get_student_by_group(group_id: int):
 
 
 @student.post('/')
-async def create_teacher(
+async def create_student(
         name: str,
         group_id: int,
-        payload: AdminPayload
+        payload: AdminPayloadModel
 ):
-    """Creates a new teacher
+    """Создание студента
 
-    :param name: teacher name
-    :param group_id: group ID
-    :param payload: payload
+    :param name: ФИО студента
+    :param group_id: ID группы
+    :param payload: полезная нагрузка
     """
     if payload.admin_token != ADMIN_TOKEN:
-        return {'error': 'You can not do it'}
+        return HttpError.ADMIN_ACCESS_REQUIRE
     last_id = db.insert_one('student', 'name', 'group_id').values(
         name, group_id
     ).exec()

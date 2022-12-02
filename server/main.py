@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-from fastapi import FastAPI
+from os import path
+
+import aiofiles
+from fastapi import FastAPI, status
+from fastapi.responses import JSONResponse, HTMLResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import Database, Column
 from mounts import student, mark, subject, teacher, group
+from docs.autodoc import generate
 
 from config import DB_NAME
 
@@ -24,6 +29,61 @@ app.mount('/mark', mark)
 app.mount('/subject', subject)
 app.mount('/teacher', teacher)
 app.mount('/group', group)
+
+DOCS_FILE = './docs/index.html'
+generate(
+    root='./docs/',
+    title='Mark_System::Docs',
+    models=[
+        ('Group', '../database/types/group.py'),
+        ('Mark', '../database/types/mark.py'),
+        ('Student', '../database/types/student.py'),
+        ('Subject', '../database/types/subject.py'),
+        ('Teacher', '../database/types/teacher.py'),
+        ('User', '../database/types/user.py'),
+        ('AdminPayloadModel', '../models/__init__.py'),
+    ],
+    methods=[
+        ('group', '../mounts/group.py'),
+        ('mark', '../mounts/mark.py'),
+        ('student', '../mounts/student.py'),
+        ('subject', '../mounts/subject.py'),
+        ('teacher', '../mounts/teacher.py'),
+    ],
+    exceptions=[
+        '../exceptions.py'
+    ],
+    tailwind_colors={
+        'back': '#080f11',
+        'fore': '#49c491',
+        'code-back': '#acacac',
+        'back-light': '#7ac499',
+        'fore-light': '#57c4ba',
+    }
+)
+
+
+@app.get('/docs')
+async def get_api_doc():
+    if path.exists(DOCS_FILE) and path.isfile(DOCS_FILE):
+        async with aiofiles.open(DOCS_FILE, 'r', encoding='utf-8') as f:
+            content = await f.read()
+        return HTMLResponse(content=content)
+    return JSONResponse(
+        content={'error': 'not found'},
+        status_code=status.HTTP_404_NOT_FOUND
+    )
+
+
+@app.get('/docs/{folder}/{file}')
+async def get_api_doc(folder: str, file: str):
+    file = f'./docs/{folder}/{file}'
+    if path.exists(file) and path.isfile(file):
+        return FileResponse(path=file)
+    return JSONResponse(
+        content={'error': 'not found'},
+        status_code=status.HTTP_404_NOT_FOUND
+    )
 
 db = Database(DB_NAME)
 

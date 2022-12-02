@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from config import ADMIN_TOKEN, DB_NAME
 from database import Database
 from database.types.teacher import Teacher
-from models import AdminPayload
+from exceptions import HttpError
+from models import AdminPayloadModel
 
 teacher = FastAPI(redoc_url=None, docs_url=None)
 
@@ -16,17 +17,17 @@ async def create_teacher(
         name: str,
         email: str,
         password: str,
-        payload: AdminPayload
+        payload: AdminPayloadModel
 ):
-    """Creates a new teacher
+    """Создание преподавателя
 
-    :param name: teacher name
-    :param email: E-mail
-    :param password: account password
-    :param payload: payload
+    :param name: ФИО преподавателя
+    :param email: E-mail преподавателя
+    :param password: пароль
+    :param payload: полезная нагрузка
     """
     if payload.admin_token != ADMIN_TOKEN:
-        return {'error': 'You can not do it'}
+        return HttpError.ADMIN_ACCESS_REQUIRE
     last_id = db.insert_one('teacher', 'name', 'access_token', 'email', 'password').values(
         name, Teacher.new_token(), email, password
     ).exec()

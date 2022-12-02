@@ -2,5 +2,5 @@
 from pydantic import BaseModel
 
 
-class AdminPayload(BaseModel):
+class AdminPayloadModel(BaseModel):
     admin_token: str
