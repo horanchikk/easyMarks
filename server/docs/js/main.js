@@ -42,14 +42,12 @@ function displayStyle(elementContainer) {
 function toggleSearchHeader(headerName) {
     const searchHeaders = document.getElementsByClassName('search-header');
     [...searchHeaders].forEach(e => {
-        console.log(e.href);
-        console.log(headerName);
-        if (e.href.includes(headerName)) {
-            if (e.style.display != null || e.style.display == 'flex')
-                e.style.display = 'none';
+        const href = e.href.split('#')[1]
+        if (href.startsWith(headerName)) {
+            if (e.style.display == 'none')
+                e.style.display = 'block';
             else
-                e.style.display = 'flex';
-            console.log(e);
+                e.style.display = 'none';
         }
     });
 }
@@ -78,7 +76,7 @@ async function sendReq(urlParams, jsonBody, id, method, apiUrl) {
         delete urlParams[key]
     }
   }
-  if (!apiUrl.endsWith('/') && !path.starsWith('/'))
+  if (!apiUrl.endsWith('/') && !path.startsWith('/'))
       apiUrl += '/';
 
   const response = await fetch(

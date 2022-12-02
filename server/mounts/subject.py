@@ -16,7 +16,7 @@ db = Database(DB_NAME)['subject']
 
 
 @subject.get('/id{subject_id}')
-async def get_subject(subject_id: int):
+async def subject_by_id(subject_id: int):
     """Получает предмет по ID
 
     :param subject_id: ID предмета
@@ -26,7 +26,7 @@ async def get_subject(subject_id: int):
 
 
 @subject.get('/marks{subject_id}:{group_id}')
-async def get_marks_by_subject_id(subject_id: int, group_id: int):
+async def subject_get_marks(subject_id: int, group_id: int):
     """Получение всех оценок по предмету и группе
 
     :param subject_id: ID предмета
@@ -56,7 +56,7 @@ async def get_marks_by_subject_id(subject_id: int, group_id: int):
 
 
 @subject.post('/')
-async def create_subject(
+async def subject_create(
         title: str,
         teacher_id: int,
         groups: str,

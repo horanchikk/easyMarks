@@ -12,7 +12,7 @@ db = Database(DB_NAME)
 
 
 @group.post('/')
-async def create_new_group(
+async def group_create(
         name: str,
         payload: AdminPayloadModel
 ):
@@ -30,7 +30,7 @@ async def create_new_group(
 
 
 @group.get('/all')
-async def get_all_groups():
+async def group_get_all():
     """Возвращает все группы
     """
     result = db.select('group').fetch_to(Group)

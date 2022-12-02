@@ -16,7 +16,7 @@ db = Database(DB_NAME)['mark']
 
 
 @mark.get('/id{m_id}')
-async def get_mark_by_id(m_id: int):
+async def mark_by_id(m_id: int):
     """Получить оценку по ID
 
     :param m_id: ID оценки
@@ -28,7 +28,7 @@ async def get_mark_by_id(m_id: int):
 
 
 @mark.post('/')
-async def add_mark(
+async def mark_add(
         student_id: int,
         subject_id: int,
         title: str,

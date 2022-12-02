@@ -13,7 +13,7 @@ db = Database(DB_NAME)['teacher']
 
 
 @teacher.post('/')
-async def create_teacher(
+async def teacher_create(
         name: str,
         email: str,
         password: str,
@@ -37,7 +37,7 @@ async def create_teacher(
 
 
 @teacher.get('/id{teacher_id}')
-async def get_teacher_by_id(teacher_id: int):
+async def teacher_by_id(teacher_id: int):
     """Получить преподавателя по ID
 
     :param teacher_id: ID преподавателя
@@ -51,7 +51,7 @@ async def get_teacher_by_id(teacher_id: int):
 
 
 @teacher.post('/auth')
-async def login_teacher(email: str, password: str):
+async def teacher_login(email: str, password: str):
     """Вход через преподавателя
 
     :param email: E-mail преподавателя

@@ -12,7 +12,7 @@ db = Database(DB_NAME)['student']
 
 
 @student.get('/id{student_id}')
-async def get_student_by_id(student_id: int):
+async def student_get_by_id(student_id: int):
     """Получить студента по ID
 
     :param student_id: ID студента
@@ -24,7 +24,7 @@ async def get_student_by_id(student_id: int):
 
 
 @student.get('/group{group_id}')
-async def get_student_by_group(group_id: int):
+async def student_get_by_group(group_id: int):
     """Получить группу по ID
 
     :param group_id: ID группы
@@ -39,7 +39,7 @@ async def get_student_by_group(group_id: int):
 
 
 @student.post('/')
-async def create_student(
+async def student_create(
         name: str,
         group_id: int,
         payload: AdminPayloadModel
