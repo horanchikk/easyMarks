@@ -2,4 +2,4 @@
 
 DB_NAME = 'marksystem'
 
-ADMIN_TOKEN = 'marksystem:v1:xui'
+ADMIN_TOKEN = 'marksystem:v1:'
