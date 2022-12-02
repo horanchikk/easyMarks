@@ -43,6 +43,8 @@ async def teacher_by_id(teacher_id: int):
     :param teacher_id: ID преподавателя
     """
     result: Teacher = db.select().where(Val('teacher_id', teacher_id)).fetch_one_to(Teacher)
+    if result is None:
+        return HttpError.INVALID_TEACHER_ID
     del result.access_token
     del result.password
     return {

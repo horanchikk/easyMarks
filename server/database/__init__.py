@@ -27,7 +27,7 @@ class Database:
     def __getitem__(self, item: str) -> 'Database':
         table = Database(self.db_name)
         table.table = item
-        return self
+        return table
 
     def also(self) -> 'Database':
         self.query += ';'
@@ -161,11 +161,9 @@ class Database:
         return result
 
     def fetch_to(self, typed):
-        self.clear_query()
         return self.to(self.fetch(), typed)
 
     def fetch_one_to(self, typed):
-        self.clear_query()
         return self.to(self.fetch_one(), typed)
 
     def to(self, value: tuple | list, typed):

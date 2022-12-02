@@ -23,3 +23,4 @@ class HttpError:
     WRONG_PASSWORD = err_response(7, "Wrong password")
     WRONG_EMAIL = err_response(8, "Wrong email")
     INVALID_GROUP_ID = err_response(9, "Invalid group ID")
+    INVALID_TEACHER_ID = err_response(10, "Invalid teacher ID")
