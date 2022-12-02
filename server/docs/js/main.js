@@ -41,15 +41,26 @@ function displayStyle(elementContainer) {
 
 function toggleSearchHeader(headerName) {
     const searchHeaders = document.getElementsByClassName('search-header');
+    const arrowDown = document.getElementsByClassName(headerName + '-arrow-down')[0];
+    console.log(headerName + '-arrow-down');
+    console.log(arrowDown);
+
+    let collapsed = false;
+
     [...searchHeaders].forEach(e => {
         const href = e.href.split('#')[1]
         if (href.startsWith(headerName)) {
-            if (e.style.display == 'none')
+            if (e.style.display == 'none'){
                 e.style.display = 'block';
-            else
+            }
+            else {
+                collapsed = true;
                 e.style.display = 'none';
+            }
         }
     });
+
+    arrowDown.style.transform = `rotate(${collapsed ? 180 : 0}deg)`
 }
 
 

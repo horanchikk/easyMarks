@@ -161,9 +161,11 @@ class Database:
         return result
 
     def fetch_to(self, typed):
+        self.clear_query()
         return self.to(self.fetch(), typed)
 
     def fetch_one_to(self, typed):
+        self.clear_query()
         return self.to(self.fetch_one(), typed)
 
     def to(self, value: tuple | list, typed):
