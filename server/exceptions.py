@@ -20,3 +20,5 @@ class HttpError:
     HAS_NT_SUBJECT = err_response(4, "This student hasn't this subject")
     NOT_ACCESS_TO_THIS_SUBJECT = err_response(5, "Haven't access to this subject")
     THIS_STUDENT_HAS_NT_SBJ = err_response(6, "This student hasn't this subject")
+    WRONG_PASSWORD = err_response(7, "Wrong password")
+    WRONG_EMAIL = err_response(8, "Wrong email")

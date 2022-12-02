@@ -8,7 +8,7 @@ from exceptions import HttpError
 from models import AdminPayloadModel
 
 student = FastAPI(docs_url=None, redoc_url=None)
-db = Database(DB_NAME)
+db = Database(DB_NAME)['student']
 
 
 @student.get('/id{student_id}')
@@ -17,7 +17,7 @@ async def get_student_by_id(student_id: int):
 
     :param student_id: ID студента
     """
-    result = db.select('student').where(Val('s_id', student_id)).fetch_one_to(Student)
+    result = db.select().where(Val('s_id', student_id)).fetch_one_to(Student)
     return {
         'response': result.dict()
     }
@@ -29,7 +29,7 @@ async def get_student_by_group(group_id: int):
 
     :param group_id: ID группы
     """
-    result = db.select('student').where(Val('group_id', group_id)).fetch_to(Student)
+    result = db.select().where(Val('group_id', group_id)).fetch_to(Student)
     return {
         'response': {
             'items': [i.dict() for i in result],
