@@ -42,7 +42,9 @@ def _string_to_md(text: str) -> str:
         text
     )
     # links [text](#anchor)
-    text = re.sub(r'\[([^]]+)]\((#[^\s)]+)\)', r'<a href="\2" class="text-pink-300">\1</a>', text)
+    text = re.sub(r'\[([\S ]+)]\((#[^\s)]+)\)', r'<a href="\2" class="text-pink-300">\1</a>', text)
+    # images [!alt](image URL)
+    text = re.sub(r'\[![^\S ]+]\([^\s]+\)', r'<img alt="\1" src="\2">', text)
     # italic text
     # **text**
     text = re.sub(r'\*\*([^\n*]+)\*\*', r'<i>\1</i>', text)
