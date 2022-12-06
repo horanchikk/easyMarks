@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from database import Database, Column
 from mounts import student, mark, subject, teacher, group
-from docs.autodoc import generate
+from docs.autodocs import AutoDocs
 
 from config import DB_NAME
 
@@ -31,7 +31,7 @@ app.mount('/teacher', teacher)
 app.mount('/group', group)
 
 DOCS_FILE = './docs/index.html'
-generate(
+AutoDocs.generate(
     root='./docs/',
     title='Mark_System::Docs',
     models=[
