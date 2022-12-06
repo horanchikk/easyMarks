@@ -5,7 +5,6 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import re
 
-
 __all__ = ['generate']
 
 
@@ -144,13 +143,11 @@ def _add_error(path: str) -> List[Dict[str, Any]]:
         r'([\w_]+) *= *err_response\(\s*(\d+)\s*,\s*("[\S\s]+?")\s*\)', module
     )
 
-    return [
-        {
-            'name': i[0].replace('_', ' ').title(),
-            'code': int(i[1]),
-            'value': i[2]
-        } for i in errors
-    ]
+    return [{
+        'name': i[0].replace('_', ' ').title(),
+        'code': int(i[1]),
+        'value': i[2]
+    } for i in errors]
 
 
 def _tailwind_config_update(config_file: str, colors: dict):
@@ -173,7 +170,7 @@ def generate(
         methods: List[Tuple[str, str]] = None,
         exceptions: List[str] = None,
         api_url: str = 'http://localhost:8000',
-        tailwind_colors = None,
+        tailwind_colors=None,
 ) -> NoReturn:
     """Generates FastAPI docs via Jinja2
 
@@ -204,7 +201,7 @@ def generate(
             'code-back': '#acacac',
             'back-light': '#f2cedb',
             'fore-light': '#ee4968',
-          }
+        }
 
     if not root.endswith('/'):
         raise ValueError('root param should be ends with "/".')

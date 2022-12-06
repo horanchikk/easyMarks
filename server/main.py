@@ -14,7 +14,7 @@ from config import DB_NAME
 
 
 app = FastAPI(
-    version='0.0.1',
+    version='0.0.7',  # 0 algorithms, 0 features, 7 bugs
     docs_url=None,
     redoc_url=None
 )
