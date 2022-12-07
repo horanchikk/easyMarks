@@ -59,7 +59,8 @@ AutoDocs.generate(
         'code-back': '#acacac',
         'back-light': '#7ac499',
         'fore-light': '#57c4ba',
-    }
+    },
+    thumb_color='#49c491'
 )
 
 

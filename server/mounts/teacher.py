@@ -25,15 +25,17 @@ async def teacher_create(
     :param email: E-mail преподавателя
     :param password: пароль
     :param payload: полезная нагрузка
+    :return: Новый ID преподавателя:
+    ```json
+    {"response": 5}
+    ```
     """
     if payload.admin_token != ADMIN_TOKEN:
         return HttpError.ADMIN_ACCESS_REQUIRE
     last_id = db.insert_one('teacher', 'name', 'access_token', 'email', 'password').values(
         name, Teacher.new_token(), email, generate_password_hash(password)
     ).exec()
-    return {
-        'response': last_id
-    }
+    return {'response': last_id}
 
 
 @teacher.get('/id{teacher_id}')
@@ -41,15 +43,23 @@ async def teacher_by_id(teacher_id: int):
     """Получить преподавателя по ID
 
     :param teacher_id: ID преподавателя
+    :return: Объект преподавателя
+    ```json
+{
+  "response": {
+    "teacher_id": 1,
+    "name": "Морозов Вадим Валерьевич",
+    "email": "horanchikk@gmail.com"
+  }
+}
+    ```
     """
     result: Teacher = db.select().where(Val('teacher_id', teacher_id)).fetch_one_to(Teacher)
     if result is None:
         return HttpError.INVALID_TEACHER_ID
     del result.access_token
     del result.password
-    return {
-        'response': result.dict()
-    }
+    return {'response': result.dict()}
 
 
 @teacher.post('/auth')
@@ -58,6 +68,15 @@ async def teacher_login(email: str, password: str):
 
     :param email: E-mail преподавателя
     :param password: Пароль
+    :return: Вход в аккаунт преподавателя
+    ```json
+{
+  "response": {
+    "access_token": "...",
+    "id": 0
+  }
+}
+    ```
     """
     result: Teacher = db.select().where(Val('email', email)).fetch_one_to(Teacher)
     if result is None:

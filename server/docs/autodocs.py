@@ -59,6 +59,8 @@ class AutoDocs:
             exceptions: list[str] = None,
             api_url: str = 'http://localhost:8000',
             tailwind_colors=None,
+            thumb_color: str = 'pink',
+            main_stylesheet: str = 'style/main.css',
     ) -> None:
         """Generates FastAPI docs via Jinja2
 
@@ -77,6 +79,8 @@ class AutoDocs:
         :param exceptions: exceptions file
         :param api_url: current api
         :param tailwind_colors: tailwind colors JSON
+        :param thumb_color: scrollbar thumb color
+        :param main_stylesheet: main stylesheet file
         """
         if models is None:
             models = []
@@ -100,6 +104,7 @@ class AutoDocs:
         )
         index_template = env.get_template(template_file)
         AutoDocs._tailwind_config_update(root + tailwind_config_file, tailwind_colors)
+        AutoDocs._setup_scrollbar(f'{root}{main_stylesheet}', thumb_color)
 
         models = {i[0]: AutoDocs._add_model(f'{root}{i[1]}', i[0]) for i in models}
         methods_list = []
@@ -146,6 +151,27 @@ class AutoDocs:
             # key': '#[0-9a-fA-F] -> key': 'value
             data = re.sub(r'(' + key + r")'\s*:\s*'(#[a-f0-9A-F]+)", r"\1': '" + value, data)
         with open(config_file, 'w', encoding='utf-8') as f:
+            f.write(data)
+
+    @staticmethod
+    def _setup_scrollbar(
+            stylesheet: str,
+            thumb_color: str
+    ):
+        """Setups scrollbar color
+
+        :param stylesheet: path/to/main/css/file
+        :param thumb_color: new thumb color
+        """
+        with open(stylesheet, 'r', encoding='utf-8') as f:
+            data = f.read()
+        # *::-webkit-scrollbar-thumb {background-color: asdasd; ->
+        # *::-webkit-scrollbar-thumb {background-color: new color
+        data = re.sub(
+            r'webkit-scrollbar-thumb *{([\S\s]+?)background-color\s*:\s*[^;]+',
+            r'webkit-scrollbar-thumb {\1background-color: ' + thumb_color, data)
+        print(data)
+        with open(stylesheet, 'w', encoding='utf-8') as f:
             f.write(data)
 
     @staticmethod
@@ -236,6 +262,7 @@ class AutoDocs:
             json = []
             # :param param_name: param description
             params_result = re.findall(r':param (\S+?): +([^\n]+)', i[3])
+            returns_result = re.findall(r':returns?: +([\S\s]+)', i[3])
             # arg_name: arg_type = default_value
             types_result = re.findall(r'([\w_]+) *: *([\w_]+\[[^]]+]|[\w_]+)( *= *([^,]+))?', i[2])
             for t in types_result:
@@ -264,6 +291,7 @@ class AutoDocs:
                 'id': method_id,
                 'params': params,
                 'json': json,
+                'returns': AutoDocs._prepare_string_to_md(returns_result[0][:-3]) if returns_result else None,
                 'http': f'{i[0].upper()} {mount_path}{i[1][1:-1]} HTTP/1.1',
             }
             methods.append(method)

@@ -6,24 +6,24 @@ body {
 }
 
 *::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 *::-webkit-scrollbar-track {
     background-color: #ffffff20;
 }
 *::-webkit-scrollbar-thumb {
-    background-color: pink;
+    background-color: #49c491;
     border-radius: 25px;
 }
 
 code {
-    background-color: #182e34;
+    background-color: #57c4ba;
     padding: 8px;
     border-radius: 6px;
     font-family: 'PT Mono', monospace;
 }
 code::selection {
-    background-color: #cd658d50;
+    background-color: #57c4ba;
     border-radius: 2px;
 }
 
