@@ -25,6 +25,36 @@ async def subject_by_id(subject_id: int):
     return {'response': s.dict()}
 
 
+@subject.get('/teacher{teacher_id}')
+async def subject_by_teacher(teacher_id: int):
+    """Получить список всех предметов преподавателя
+
+    :param teacher_id: ID преподавателя
+    """
+    all_s = db.select().where(Val('teacher_id', teacher_id)).fetch_to(Subject)
+    all_s = [i.dict() for i in all_s]
+    return {
+        'response': {
+            'items': all_s,
+            'size': len(all_s)
+        }
+    }
+
+
+@subject.get('/all')
+async def subject_by_teacher():
+    """Получить список всех предметов
+    """
+    all_s = db.select().fetch_to(Subject)
+    all_s = [i.dict() for i in all_s]
+    return {
+        'response': {
+            'items': all_s,
+            'size': len(all_s)
+        }
+    }
+
+
 @subject.get('/marks{subject_id}:{group_id}')
 async def subject_get_marks(subject_id: int, group_id: int):
     """Получение всех оценок по предмету и группе
