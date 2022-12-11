@@ -31,6 +31,7 @@ app.mount('/teacher', teacher)
 app.mount('/group', group)
 
 DOCS_FILE = './docs/index.html'
+
 AutoDocs.generate(
     root='./docs/',
     title='Mark_System::Docs',
@@ -116,6 +117,7 @@ def main():
             Column('access_token', Column.Type.TEXT),
             Column('email', Column.Type.TEXT),
             Column('password', Column.Type.TEXT),
+            Column('admin', Column.Type.TEXT),
         ).if_not_exists().also().create_table(
             'studentGroup',
             Column('group_id', Column.Type.INT, primary_key=True, autoincrement=True),

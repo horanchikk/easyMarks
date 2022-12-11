@@ -5,13 +5,14 @@ from .. import DatabaseType
 
 
 class Teacher(DatabaseType):
-    template = ['teacher_id', 'name', 'access_token', 'email', 'password']
+    template = ['teacher_id', 'name', 'access_token', 'email', 'password', 'admin']
 
     teacher_id: int
     name: str
     access_token: str
     email: str
     password: str
+    admin: str
 
     @staticmethod
     def new_token():

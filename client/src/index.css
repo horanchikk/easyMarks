@@ -1,0 +1,72 @@
+@keyframes borderLoad {
+  0% {
+    border: 1px rgba(0, 100, 255, 1) solid;
+  }
+  50% {
+    border: 1px rgba(0, 255, 100, 1) solid;
+  }
+  100% {
+    border: 1px rgba(255, 140, 0, 1) solid;
+  }
+}
+
+@keyframes leftShow {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes rightShow {
+  0% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+*::-webkit-scrollbar {
+  background: white;
+  width: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.25);
+  border-radius: 100px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.35);
+}
+
+.showAnim {
+  animation: 300ms leftShow ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.hideAnim {
+  animation: 300ms rightShow ease;
+  animation-fill-mode: forwards;
+}
+
+.border-animated {
+  border: 1px rgba(0, 0, 255, 1) solid;
+  animation: borderLoad 5s linear infinite alternate-reverse;
+}
+
+.hideShow-enter-active,
+.hideShow-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.hideShow-enter-from,
+.hideShow-leave-to {
+  opacity: 0;
+}

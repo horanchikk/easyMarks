@@ -32,8 +32,8 @@ async def teacher_create(
     """
     if payload.admin_token != ADMIN_TOKEN:
         return HttpError.ADMIN_ACCESS_REQUIRE
-    last_id = db.insert_one('teacher', 'name', 'access_token', 'email', 'password').values(
-        name, Teacher.new_token(), email, generate_password_hash(password)
+    last_id = db.insert_one('teacher', 'name', 'access_token', 'email', 'password', 'admin').values(
+        name, Teacher.new_token(), email, generate_password_hash(password), False
     ).exec()
     return {'response': last_id}
 
@@ -47,9 +47,10 @@ async def teacher_by_id(teacher_id: int):
     ```json
 {
   "response": {
+        "admin": "1",
     "teacher_id": 1,
     "name": "Морозов Вадим Валерьевич",
-    "email": "horanchikk@gmail.com"
+    "email": "horanchikk@gmail.com",
   }
 }
     ```
@@ -86,6 +87,7 @@ async def teacher_login(email: str, password: str):
     return {
         'response': {
             'access_token': result.access_token,
-            'id': result.teacher_id
+            'id': result.teacher_id,
+            'admin': True if result.admin == "1" else False
         }
     }
