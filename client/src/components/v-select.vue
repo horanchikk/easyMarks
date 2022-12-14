@@ -19,13 +19,13 @@
 import { ref } from 'vue';
 
 const props = defineProps([
-    'items', 'objectKey', 'firstItem'
+    'items', 'objectKey'
 ])
 const emit = defineEmits([
     'item'
 ])
 
-const selected = ref(props.firstItem)
+const selected = ref(props.items[0][props.objectKey])
 const show = ref(false)
 
 </script>

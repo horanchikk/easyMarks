@@ -21,17 +21,6 @@
   }
 }
 
-@keyframes downShow {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
-
 @keyframes rightShow {
   0% {
     opacity: 1;
@@ -58,17 +47,13 @@
 }
 
 .showAnim {
-  animation: 300ms leftShow ease-out;
+  animation: 300ms leftShow ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .hideAnim {
   animation: 300ms rightShow ease;
   animation-fill-mode: forwards;
-}
-
-.showDownAnim {
-  animation: 300ms downShow ease-out;
 }
 
 .border-animated {
