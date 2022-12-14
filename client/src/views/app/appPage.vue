@@ -1,9 +1,22 @@
 <template>
+  <vDialog :show="showDialog" @showEmit="hideDialog">
+    <template #header>Добавление оценки</template>
+    <form @submit.prevent="mark.add(rememberID)" class="flex flex-col gap-5">
+      <div class="flex gap-4">
+        <vInput
+            placeholder="Введите причину оценки"
+            v-model="mark.data.title"
+            required
+        />
+        <vSelect :items="marks" firstItem="Оценка" objectKey="mark" @item="mark.select" required />
+      </div>
+      <vButton type="submit">Добавить оценку</vButton>
+    </form>
+  </vDialog>
   <!--  Мы настолько сильно любим проколледж, что решили убрать возможность удалять и изменять оценки.
      Теперь их можно только добавлять! =) -->
-  <!--  main code  -->
   <main class="flex flex-col w-full h-full">
-    <header class="flex items-center justify-between p-3 bg-[#4A4A4A] px-90">
+    <header class="flex items-center justify-between p-3 bg-[#4A4A4A] px-50">
       <p
         class="
           text-2xl
@@ -22,9 +35,12 @@
         Панель администратора
       </p>
       <div class="flex gap-8 items-center">
-        <div class="flex flex-col text-center cursor-default">
-          <p>{{ userInfo.name }}</p>
-          <p class="text-sm opacity-50">{{ currentSubject.title }}</p>
+        <div v-if="userInfo.name === undefined && currentSubject.title === undefined" class="flex flex-col text-center cursor-default">
+          <div class="i-line-md:loading-loop" />
+        </div>
+        <div v-else class="flex flex-col text-center cursor-default">
+          <p class="showDownAnim">{{ userInfo.name }}</p>
+          <p class="text-sm opacity-50 showDownAnim">{{ currentSubject.title }}</p>
         </div>
         <i
           class="
@@ -39,7 +55,7 @@
         />
       </div>
     </header>
-    <main class="flex flex-auto gap-5 my-5 px-90">
+    <main class="flex flex-auto gap-5 my-5 px-50">
       <section
         class="
           w-1/6
@@ -315,8 +331,7 @@
         >
           <div class="flex gap-10 justify-center my-2 w-full">
             <div>
-              <p>Выберите группу</p>
-              <vSelect :items="groups" objectKey="name" @item="select.group" />
+              <vSelect :items="groups" objectKey="name" firstItem="Выберите группу" @item="select.group" />
             </div>
           </div>
           <div class="flex flex-auto justify-center items-center">
@@ -324,7 +339,7 @@
               v-if="select.selected.name !== undefined"
               class="flex justify-center"
             >
-              <table class="cursor-default min-w-4/5">
+              <table class="cursor-default min-w-4/5 text-xl">
                 <tr>
                   <th>Ученик</th>
                   <th>Оценки</th>
@@ -334,18 +349,73 @@
                   :key="name"
                   class="hover:bg-white hover:bg-opacity-5"
                 >
+                  <th v-if="students[name] !== undefined" class="showDownAnim">{{ students[name] }}</th>
+                  <th v-else class="h-full w-full flex items-center justify-center"><div class="i-line-md:loading-loop" /></th>
                   <th>
-                    {{ name }}
-                  </th>
-                  <th>
-                    <div class="flex gap-5">
+                    <div class="flex gap-3 items-center">
                       <div v-for="mark in value" :key="mark.id">
-                        {{ mark.score }}
+                        <div
+                          v-if="mark.score === 5"
+                          class="hint--top"
+                          :aria-label="`${mark.title}, ${formatDistance(
+                            fromUnixTime(mark.timestamp),
+                            new Date(),
+                            {
+                              locale: ru,
+                            }
+                          )} назад`"
+                        >
+                          <p class="text-green-400">5</p>
+                        </div>
+                        <div
+                          v-if="mark.score === 4"
+                          class="hint--top"
+                          :aria-label="`${mark.title}, ${formatDistance(
+                            fromUnixTime(mark.timestamp),
+                            new Date(),
+                            {
+                              locale: ru,
+                            }
+                          )} назад`"
+                        >
+                          <p class="text-green-600">4</p>
+                        </div>
+                        <div
+                          v-if="mark.score === 3"
+                          class="hint--top"
+                          :aria-label="`${mark.title}, ${formatDistance(
+                            fromUnixTime(mark.timestamp),
+                            new Date(),
+                            {
+                              locale: ru,
+                            }
+                          )} назад`"
+                        >
+                          <p class="text-orange-500">3</p>
+                        </div>
+                        <div
+                          v-if="mark.score === 2"
+                          class="hint--top"
+                          :aria-label="`${mark.title}, ${formatDistance(
+                            fromUnixTime(mark.timestamp),
+                            new Date(),
+                            {
+                              locale: ru,
+                            }
+                          )} назад`"
+                        >
+                          <p class="text-red-500">2</p>
+                        </div>
                       </div>
+                      <!-- TODO: add here mark btn -->
+                      <div class="i-tabler:square-plus opacity-30 cursor-pointer hover:opacity-100 transition-all" @click="rememberID = name; showDialog = true"></div>
                     </div>
                   </th>
                 </tr>
               </table>
+            </div>
+            <div v-else-if="currentGroup === undefined">
+              В группе отсутствуют ученики.
             </div>
             <div v-else>Выберите группу</div>
           </div>
@@ -377,46 +447,61 @@ import { onMounted, ref } from "vue";
 import Cookies from "js-cookie";
 import router from "../../router/index.js";
 import axios from "axios";
+import { formatDistance, fromUnixTime } from "date-fns";
+import { ca, ru } from "date-fns/locale";
 
 // import components
 import vButton from "../../components/v-button.vue";
 import vInput from "../../components/v-input.vue";
+import vDialog from "../../components/v-dialog.vue";
 import vSelect from "../../components/v-select.vue";
+import getSeconds from "date-fns/fp/getSeconds/index.js";
 
-const modal = ref({
-  show: false,
-});
-const loading = ref(false);
-const currentWindow = ref(undefined);
+
 const userInfo = ref({
   token: undefined,
   id: undefined,
   admin: undefined,
   admin_token: undefined,
+  name: undefined,
 });
 
+const currentWindow = ref(undefined);
+const showDialog = ref(false)
+const loading = ref(false);
 const groups = ref([]);
 const currentSubject = ref({});
 const currentGroup = ref();
+const students = ref([]);
+
+function hideDialog(value) {
+  showDialog.value = value
+}
+
+function getStudentName(sid) {
+  axios.get(`http://127.0.0.1:8000/student/id${sid}`).then((res) => {
+    students.value[sid] = res.data.response.name;
+  });
+}
 
 const select = ref({
   group: (value) => {
+    loading.value = true;
+    rememberSelect.value = value;
     select.value.selected = groups.value.find((group) => group.name === value);
+    console.log(groups.value.find((group) => group.name === value))
     axios
       .get(
         `http://127.0.0.1:8000/subject/marks${currentSubject.value.s_id}:${select.value.selected.group_id}`
       )
       .then((res) => {
-        // object of arrays with objs
-        // {
-        //   "id": 1,
-        //     "score": 5,
-        //     "title": "test mark",
-        //     "timestamp": 1670756478.5204442
-        // }
         currentGroup.value = res.data.response;
+        students.value = [];
+        for (const [key] of Object.entries(currentGroup.value)) {
+          getStudentName(key);
+        };
+        loading.value = false;
       });
-    console.log(select.value.selected.group_id);
   },
   selected: {
     name: undefined,
@@ -430,6 +515,46 @@ function clearObjValue(obj) {
   }
 }
 
+const rememberSelect = ref();
+const rememberID = ref();
+const rememberLastTitle = ref("");
+
+const marks = ref([
+  {"mark": 5},
+  {"mark": 4},
+  {"mark": 3},
+  {"mark": 2},
+])
+
+const mark = ref({
+  select: (score) => {
+    mark.value.data.score = score
+  },
+  data: {
+    title: "",
+    score: 2,
+  },
+  update: () => {
+    select.value.group(rememberSelect.value); // here we get all marks, re-render window
+    showDialog.value = false;
+    mark.value.data.title = rememberLastTitle.value; // remember title and load it to modal
+  },
+  add: (student_id) => {
+    rememberLastTitle.value = mark.value.data.title;
+    axios.post(`http://127.0.0.1:8000/mark/?student_id=${student_id}&subject_id=${currentSubject.value.s_id}&title=${mark.value.data.title}&score=${mark.value.data.score}&access_token=${userInfo.value.token}`)
+        .then((res) => {console.log(res.data)})
+        .catch((err) => {throw err;});
+    mark.value.update();
+  },
+  remove: (student_id) => {
+    rememberLastTitle.value = mark.value.data.title;
+    axios.post(`http://127.0.0.1:8000/mark/?student_id=${student_id}&subject_id=${currentSubject.value.s_id}&title=${mark.value.data.title}&score=${mark.value.data.score}&access_token=${userInfo.value.token}`)
+        .then((res) => {console.log(res.data)})
+        .catch((err) => {throw err;});
+    mark.value.update();
+  }
+})
+
 const user = ref({
   logout: () => {
     Cookies.remove("userInfo");
@@ -437,16 +562,6 @@ const user = ref({
     router.push("/auth");
   },
 });
-
-const modalWindow = {
-  hide: () => {
-    modal.value.show = false;
-    modal.value.type = "";
-  },
-  show: () => {
-    modal.value.show = true;
-  },
-};
 
 const admin = {
   get: {
@@ -478,15 +593,6 @@ const admin = {
         });
     },
     /**
-     * Получение студента по ID
-     * @param {Number} sid student id
-     */
-    studentByID: (sid) => {
-      return axios.get(`http://127.0.0.1:8000/student/id${sid}`).then((res) => {
-        return res.data.response;
-      });
-    },
-    /**
      * Получение группы по ID
      * @param {Number} gid group id
      */
@@ -504,15 +610,9 @@ const admin = {
      * Получение предмета по ID
      * @param {Number} sid subject id
      */
-    subjectByID: (sid) => {
-      axios
-        .get(`http://127.0.0.1:8080/subject/id${sid}`)
-        .then((res) => {
-          return res.data.response;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+    subjectByID: async (sid) => {
+      const res = await axios.get(`http://127.0.0.1:8080/subject/id${sid}`);
+      return res.data;
     },
     /**
      * Получение всех оценок по предмету и группе

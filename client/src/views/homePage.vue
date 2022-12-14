@@ -2,7 +2,7 @@
   <main class="flex flex-col justify-center items-center w-full h-full">
     <form
       @submit.prevent="authorization"
-      class="flex flex-col gap-5 p-6 rounded-md border"
+      class="flex flex-col gap-5 p-6 rounded-md border showDownAnim"
     >
       <p class="text-2xl text-center">Авторизация в систему</p>
       <div class="flex flex-col gap-3">
@@ -14,10 +14,10 @@
           required
         />
         <div class="text-center text-red-400 rounded-md">
-          {{ $route.query.err }}
+          {{ errMessage }}
         </div>
       </div>
-      <vButton type="success">
+      <vButton :type="loading ? 'loading' : 'success'">
         <div class="text-xl i-tabler:user" />
         <p class="text-lg">Войти</p>
       </vButton>
@@ -27,7 +27,7 @@
 
 <script setup>
 // Import libs
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import Cookies from "js-cookie";
 // Import components
@@ -40,9 +40,12 @@ const user = ref({
   password: undefined,
 });
 
+const loading = ref(false);
+const errMessage = ref();
 const ip = "http://127.0.0.1:8000";
 
 function authorization() {
+  loading.value = true;
   axios
     .post(
       `${ip}/teacher/auth?email=${user.value.login}&password=${user.value.password}`
@@ -51,8 +54,9 @@ function authorization() {
       Cookies.set("userInfo", JSON.stringify(res.data.response));
       router.push("/app");
     })
-    .catch((err) => {
-      router.push("/auth?err=Неверный логин или пароль.");
+    .catch(() => {
+      errMessage.value = 'Неверный логин или пароль.';
+      loading.value = false;
     });
 }
 </script>
