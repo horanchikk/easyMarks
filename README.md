@@ -2,4 +2,4 @@
 
 Stats page for checkingMarks =)
 
-p.s. need to deployyyyy
+p.s. need to deploy
