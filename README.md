@@ -1,3 +1,5 @@
-# Checking marks
+# checkingmarks
 
-Проект.
+Stats page for checkingMarks =)
+
+p.s. need to deployyyyy
