@@ -1,3 +1,1 @@
-# Checking marks
-
-Проект.
+# EasyMarks
