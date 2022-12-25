@@ -33,7 +33,7 @@ async def teacher_create(
     if payload.admin_token != ADMIN_TOKEN:
         return HttpError.ADMIN_ACCESS_REQUIRE
     last_id = db.insert_one('teacher', 'name', 'access_token', 'email', 'password', 'admin').values(
-        name, Teacher.new_token(), email, generate_password_hash(password), False
+        name, Teacher.new_token(), email, generate_password_hash(password), False # change on True, if you want to create admin user
     ).exec()
     return {'response': last_id}
 

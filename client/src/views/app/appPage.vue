@@ -4,11 +4,17 @@
     <form @submit.prevent="mark.add(rememberID)" class="flex flex-col gap-5">
       <div class="flex gap-4">
         <vInput
-            placeholder="Введите причину оценки"
-            v-model="mark.data.title"
-            required
+          placeholder="Введите причину оценки"
+          v-model="mark.data.title"
+          required
         />
-        <vSelect :items="marks" firstItem="Оценка" objectKey="mark" @item="mark.select" required />
+        <vSelect
+          :items="marks"
+          firstItem="Оценка"
+          objectKey="mark"
+          @item="mark.select"
+          required
+        />
       </div>
       <vButton type="submit">Добавить оценку</vButton>
     </form>
@@ -18,15 +24,7 @@
   <main class="flex flex-col w-full h-full">
     <header class="flex items-center justify-between p-3 bg-[#4A4A4A] px-50">
       <p
-        class="
-          text-2xl
-          transition-all
-          cursor-pointer
-          select-none
-          text-animated
-          hover:opacity-70
-          active:opacity-90
-        "
+        class="text-2xl transition-all cursor-pointer select-none text-animated hover:opacity-70 active:opacity-90"
         @click="currentWindow = undefined"
       >
         Mark System
@@ -35,54 +33,33 @@
         Панель администратора
       </p>
       <div class="flex gap-8 items-center">
-        <div v-if="userInfo.name === undefined && currentSubject.title === undefined" class="flex flex-col text-center cursor-default">
+        <div
+          v-if="
+            userInfo.name === undefined && currentSubject.title === undefined
+          "
+          class="flex flex-col text-center cursor-default"
+        >
           <div class="i-line-md:loading-loop" />
         </div>
         <div v-else class="flex flex-col text-center cursor-default">
           <p class="showDownAnim">{{ userInfo.name }}</p>
-          <p class="text-sm opacity-50 showDownAnim">{{ currentSubject.title }}</p>
+          <p class="text-sm opacity-50 showDownAnim">
+            {{ currentSubject.title }}
+          </p>
         </div>
         <i
-          class="
-            text-3xl
-            transition-all
-            cursor-pointer
-            i-tabler:logout
-            hover:opacity-80
-            active:opacity-60
-          "
+          class="text-3xl transition-all cursor-pointer i-tabler:logout hover:opacity-80 active:opacity-60"
           @click="user.logout()"
         />
       </div>
     </header>
     <main class="flex flex-auto gap-5 my-5 px-50">
       <section
-        class="
-          w-1/6
-          h-full
-          flex flex-col
-          divide-y-2
-          gap-10
-          bg-[#4A4A4A]
-          rounded-md
-          opacity-0
-          showAnim
-        "
+        class="w-1/6 h-full flex flex-col divide-y-2 gap-10 bg-[#4A4A4A] rounded-md opacity-0 showAnim"
       >
         <div v-if="userInfo.admin">
           <div
-            class="
-              py-2
-              my-2
-              w-full
-              text-center
-              bg-white bg-opacity-0
-              transition-all
-              cursor-pointer
-              select-none
-              hover:bg-opacity-10
-              active:bg-opacity-30
-            "
+            class="py-2 my-2 w-full text-center bg-white bg-opacity-0 transition-all cursor-pointer select-none hover:bg-opacity-10 active:bg-opacity-30"
             @click="currentWindow = 'create'"
           >
             Создать
@@ -90,20 +67,7 @@
         </div>
         <div v-else>
           <div
-            class="
-              flex flex-col
-              gap-3
-              py-2
-              my-2
-              w-full
-              text-center
-              bg-white bg-opacity-0
-              transition-all
-              cursor-pointer
-              select-none
-              hover:bg-opacity-10
-              active:bg-opacity-30
-            "
+            class="flex flex-col gap-3 py-2 my-2 w-full text-center bg-white bg-opacity-0 transition-all cursor-pointer select-none hover:bg-opacity-10 active:bg-opacity-30"
             @click="currentWindow = 'markbook'"
           >
             Журнал
@@ -118,34 +82,10 @@
         <!--        for admin-->
         <div
           v-if="currentWindow === 'create' && userInfo.admin === true"
-          class="
-            grid grid-cols-2 grid-rows-2 grid-flow-col
-            gap-5
-            p-10
-            w-full
-            h-full
-            opacity-0
-            showAnim
-          "
+          class="grid grid-cols-2 grid-rows-2 grid-flow-col gap-5 p-10 w-full h-full opacity-0 showAnim"
         >
           <div
-            class="
-              flex flex-col
-              gap-5
-              p-5
-              rounded-md
-              border border-white border-opacity-30
-              shadow-xl
-              transition-all
-              cursor-default
-              select-none
-              shadow-black shadow-opacity-5
-              hover:-translate-x-1
-              hover:-translate-y-1
-              hover:shadow-opacity-10
-              hover:shadow-2xl
-              hover:border-opacity-80
-            "
+            class="flex flex-col gap-5 p-5 rounded-md border border-white border-opacity-30 shadow-xl transition-all cursor-default select-none shadow-black shadow-opacity-5 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-opacity-10 hover:shadow-2xl hover:border-opacity-80"
           >
             <p class="text-center">Создание группы</p>
             <vInput
@@ -170,23 +110,7 @@
             </Transition>
           </div>
           <div
-            class="
-              flex flex-col
-              gap-5
-              p-5
-              rounded-md
-              border border-white border-opacity-30
-              shadow-xl
-              transition-all
-              cursor-default
-              select-none
-              shadow-black shadow-opacity-5
-              hover:-translate-x-1
-              hover:-translate-y-1
-              hover:shadow-opacity-10
-              hover:shadow-2xl
-              hover:border-opacity-80
-            "
+            class="flex flex-col gap-5 p-5 rounded-md border border-white border-opacity-30 shadow-xl transition-all cursor-default select-none shadow-black shadow-opacity-5 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-opacity-10 hover:shadow-2xl hover:border-opacity-80"
           >
             <p class="text-center">Создание студента</p>
             <vInput
@@ -218,23 +142,7 @@
             </Transition>
           </div>
           <div
-            class="
-              flex flex-col
-              gap-5
-              p-5
-              rounded-md
-              border border-white border-opacity-30
-              shadow-xl
-              transition-all
-              cursor-default
-              select-none
-              shadow-black shadow-opacity-5
-              hover:-translate-x-1
-              hover:-translate-y-1
-              hover:shadow-opacity-10
-              hover:shadow-2xl
-              hover:border-opacity-80
-            "
+            class="flex flex-col gap-5 p-5 rounded-md border border-white border-opacity-30 shadow-xl transition-all cursor-default select-none shadow-black shadow-opacity-5 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-opacity-10 hover:shadow-2xl hover:border-opacity-80"
           >
             <p class="text-center">Создание предмета</p>
             <vInput
@@ -271,23 +179,7 @@
             </Transition>
           </div>
           <div
-            class="
-              flex flex-col
-              gap-5
-              p-5
-              rounded-md
-              border border-white border-opacity-30
-              shadow-xl
-              transition-all
-              cursor-default
-              select-none
-              shadow-black shadow-opacity-5
-              hover:-translate-x-1
-              hover:-translate-y-1
-              hover:shadow-opacity-10
-              hover:shadow-2xl
-              hover:border-opacity-80
-            "
+            class="flex flex-col gap-5 p-5 rounded-md border border-white border-opacity-30 shadow-xl transition-all cursor-default select-none shadow-black shadow-opacity-5 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-opacity-10 hover:shadow-2xl hover:border-opacity-80"
           >
             <p class="text-center">Создание преподавателя</p>
             <vInput
@@ -331,7 +223,12 @@
         >
           <div class="flex gap-10 justify-center my-2 w-full">
             <div>
-              <vSelect :items="groups" objectKey="name" firstItem="Выберите группу" @item="select.group" />
+              <vSelect
+                :items="groups"
+                objectKey="name"
+                firstItem="Выберите группу"
+                @item="select.group"
+              />
             </div>
           </div>
           <div class="flex flex-auto justify-center items-center">
@@ -349,8 +246,15 @@
                   :key="name"
                   class="hover:bg-white hover:bg-opacity-5"
                 >
-                  <th v-if="students[name] !== undefined" class="showDownAnim">{{ students[name] }}</th>
-                  <th v-else class="h-full w-full flex items-center justify-center"><div class="i-line-md:loading-loop" /></th>
+                  <th v-if="students[name] !== undefined" class="showDownAnim">
+                    {{ students[name] }}
+                  </th>
+                  <th
+                    v-else
+                    class="h-full w-full flex items-center justify-center"
+                  >
+                    <div class="i-line-md:loading-loop" />
+                  </th>
                   <th>
                     <div class="flex gap-3 items-center">
                       <div v-for="mark in value" :key="mark.id">
@@ -408,7 +312,13 @@
                         </div>
                       </div>
                       <!-- TODO: add here mark btn -->
-                      <div class="i-tabler:square-plus opacity-30 cursor-pointer hover:opacity-100 transition-all" @click="rememberID = name; showDialog = true"></div>
+                      <div
+                        class="i-tabler:square-plus opacity-30 cursor-pointer hover:opacity-100 transition-all"
+                        @click="
+                          rememberID = name;
+                          showDialog = true;
+                        "
+                      ></div>
                     </div>
                   </th>
                 </tr>
@@ -423,15 +333,7 @@
         <!-- not selected window -->
         <div
           v-else-if="currentWindow === undefined"
-          class="
-            flex
-            justify-center
-            items-center
-            w-full
-            h-full
-            text-2xl
-            showAnim
-          "
+          class="flex justify-center items-center w-full h-full text-2xl showAnim"
         >
           Выберите секцию
         </div>
@@ -457,7 +359,6 @@ import vDialog from "../../components/v-dialog.vue";
 import vSelect from "../../components/v-select.vue";
 import getSeconds from "date-fns/fp/getSeconds/index.js";
 
-
 const userInfo = ref({
   token: undefined,
   id: undefined,
@@ -467,7 +368,7 @@ const userInfo = ref({
 });
 
 const currentWindow = ref(undefined);
-const showDialog = ref(false)
+const showDialog = ref(false);
 const loading = ref(false);
 const groups = ref([]);
 const currentSubject = ref({});
@@ -475,7 +376,7 @@ const currentGroup = ref();
 const students = ref([]);
 
 function hideDialog(value) {
-  showDialog.value = value
+  showDialog.value = value;
 }
 
 function getStudentName(sid) {
@@ -489,7 +390,7 @@ const select = ref({
     loading.value = true;
     rememberSelect.value = value;
     select.value.selected = groups.value.find((group) => group.name === value);
-    console.log(groups.value.find((group) => group.name === value))
+    console.log(groups.value.find((group) => group.name === value));
     axios
       .get(
         `http://127.0.0.1:8000/subject/marks${currentSubject.value.s_id}:${select.value.selected.group_id}`
@@ -499,7 +400,7 @@ const select = ref({
         students.value = [];
         for (const [key] of Object.entries(currentGroup.value)) {
           getStudentName(key);
-        };
+        }
         loading.value = false;
       });
   },
@@ -519,16 +420,11 @@ const rememberSelect = ref();
 const rememberID = ref();
 const rememberLastTitle = ref("");
 
-const marks = ref([
-  {"mark": 5},
-  {"mark": 4},
-  {"mark": 3},
-  {"mark": 2},
-])
+const marks = ref([{ mark: 5 }, { mark: 4 }, { mark: 3 }, { mark: 2 }]);
 
 const mark = ref({
   select: (score) => {
-    mark.value.data.score = score
+    mark.value.data.score = score;
   },
   data: {
     title: "",
@@ -541,19 +437,33 @@ const mark = ref({
   },
   add: (student_id) => {
     rememberLastTitle.value = mark.value.data.title;
-    axios.post(`http://127.0.0.1:8000/mark/?student_id=${student_id}&subject_id=${currentSubject.value.s_id}&title=${mark.value.data.title}&score=${mark.value.data.score}&access_token=${userInfo.value.token}`)
-        .then((res) => {console.log(res.data)})
-        .catch((err) => {throw err;});
+    axios
+      .post(
+        `http://127.0.0.1:8000/mark/?student_id=${student_id}&subject_id=${currentSubject.value.s_id}&title=${mark.value.data.title}&score=${mark.value.data.score}&access_token=${userInfo.value.token}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
     mark.value.update();
   },
   remove: (student_id) => {
     rememberLastTitle.value = mark.value.data.title;
-    axios.post(`http://127.0.0.1:8000/mark/?student_id=${student_id}&subject_id=${currentSubject.value.s_id}&title=${mark.value.data.title}&score=${mark.value.data.score}&access_token=${userInfo.value.token}`)
-        .then((res) => {console.log(res.data)})
-        .catch((err) => {throw err;});
+    axios
+      .post(
+        `http://127.0.0.1:8000/mark/?student_id=${student_id}&subject_id=${currentSubject.value.s_id}&title=${mark.value.data.title}&score=${mark.value.data.score}&access_token=${userInfo.value.token}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
     mark.value.update();
-  }
-})
+  },
+});
 
 const user = ref({
   logout: () => {
@@ -798,7 +708,7 @@ onMounted(async () => {
       id: JSON.parse(Cookies.get("userInfo")).id,
       admin: JSON.parse(Cookies.get("userInfo")).admin,
       admin_token: JSON.parse(Cookies.get("userInfo")).admin
-        ? "marksystem:v1:hui"
+        ? "marksystem:v1:"
         : undefined,
       name: await nigger().then((res) => {
         return res.name;
